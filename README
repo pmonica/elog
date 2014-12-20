@@ -26,13 +26,13 @@ choose  Enter your selection: [rspec]
 option  Continuous testing?
 choose  Enter your selection: [none]
 option  Front-end framework?
-choose  Enter your selection: [bootstrap3]
+choose  Enter your selection: [foundation5]
 option  Add support for sending email?
 choose  Enter your selection: [sendgrid]
 option  Authentication?
 choose  Enter your selection: [devise]
 option  Devise modules?
-choose  Enter your selection: [default]
+choose  Enter your selection: [confirmable]
 option  OmniAuth provider?
 choose  Enter your selection: []
 option  Authorization?
