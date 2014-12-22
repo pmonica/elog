@@ -19,25 +19,8 @@ i {
   border-radius: 10px;
 }
 
-html,body{
-    height: 100%
-}
-
-#holder{
-    min-height: 100%;
-    position:relative;
-}
-
-#body{
-    padding-bottom: 100px;    /* height of footer */
-}
-
 footer {
   padding-top:20px;
   padding-bottom:20px;
   background-color:#efefef;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
 }
