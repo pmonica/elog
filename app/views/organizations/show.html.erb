@@ -1,35 +1,42 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= render 'layouts/left_navigation' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @organization.name %>
-</p>
+  <div class="col-sm-9">
+     <h3><i class="glyphicon glyphicon-dashboard"></i> Organization Detail</h3>
+     <hr>
+  </div>
+    <div class="row">
+      <div class="col-md-7">
+      <p>
+      <strong>Name:</strong>
+      <%= @organization.name %>
+      </p>
 
-<p>
-  <strong>Country:</strong>
-  <%= @organization.country %>
-</p>
+      <p>
+        <strong>Country:</strong>
+        <%= @organization.country %>
+      </p>
 
-<p>
-  <strong>Situations:</strong>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Situations</th>
-        <th>Created at</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @organization.situations.each do |s| %>
-        <tr>
-          <td><%= link_to s.name, s %></td>
-          <td><%= s.created_at %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Situations</th>
+            <th>Created at</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @organization.situations.each do |s| %>
+            <tr>
+              <td><%= link_to s.name, s %></td>
+              <td><%= s.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %>
+    <%= link_to 'Back', organizations_path, :type => 'button', :class => 'btn btn-primary' %>
+  </div>
+</div>
 
-
-<%= link_to 'Edit', edit_organization_path(@organization) %> |
-<%= link_to 'Back', organizations_path %>

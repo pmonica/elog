@@ -1,0 +1,43 @@
+i {
+  font-size:18px;
+}
+
+.nav>li .count {
+  position: absolute;
+  top: 10%;
+  right: 25%;
+  font-size: 10px;
+  font-weight: normal;
+  background: rgba(41,200,41,0.75);
+  color: rgb(255,255,255);
+  line-height: 1em;
+  padding: 2px 4px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+}
+
+html,body{
+    height: 100%
+}
+
+#holder{
+    min-height: 100%;
+    position:relative;
+}
+
+#body{
+    padding-bottom: 100px;    /* height of footer */
+}
+
+footer {
+  padding-top:20px;
+  padding-bottom:20px;
+  background-color:#efefef;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+}

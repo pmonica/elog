@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title><%= content_for?(:title) ? yield(:title) : "Elog" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Elog" %>">
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-  <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
-  </body>
+  <div id="holder">
+    <body>
+      <header>
+        <%= render 'layouts/header_navigation' %>
+      </header>
+
+      <div class="container">
+        <%= render 'layouts/messages' %>
+        <% if current_user %>
+          <%= render 'layouts/admin_warnings' %>
+        <% end %>
+        <!-- Load the actual main content -->
+        <%= yield %>
+      </div>
+      <%= render 'layouts/footer' %>
+    </body>
+  </div>
 </html>

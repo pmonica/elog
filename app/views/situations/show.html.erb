@@ -1,21 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= render 'layouts/left_navigation' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @situation.name %>
-</p>
+  <div class="col-sm-9">
+     <h3><i class="glyphicon glyphicon-dashboard"></i> Situation Detail</h3>
+     <hr>
+  </div>
+    <div class="row">
+      <div class="col-md-7">
+      <p>
+      <strong>Name:</strong>
+      <%= @situation.name %>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @situation.description %>
-</p>
+      <p>
+        <strong>Country:</strong>
+        <%= @situation.description %>
+      </p>
 
-<p>
-  <strong>Organizations:</strong>
-  <% @situation.organizations.each do |org| %>
-    <%= link_to org.name, org%>
-  <% end %>
-</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Organizations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @situation.organizations.each do |o| %>
+            <tr>
+              <td><%= link_to o.name, o %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
+    <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_situation_path(@situation) %> |
-<%= link_to 'Back', situations_path %>

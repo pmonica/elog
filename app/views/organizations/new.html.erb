@@ -1,5 +1,17 @@
-<h1>New Organization</h1>
+<div class="row">
+  <%= render 'layouts/left_navigation' %>
 
-<%= render 'form' %>
+  <div class="col-sm-9">
+     <h3><i class="glyphicon glyphicon-dashboard"></i> New Organization</h3>
+     <hr>
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <%= render 'form' %>
+    </div>
+    <hr>
 
-<%= link_to 'Back', organizations_path %>
+    <%= link_to 'Back', organizations_path, :type => 'button', :class => 'btn btn-primary' %>
+  </div>
+</div>
+

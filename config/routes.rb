@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :organizations
 
-  root to: 'visitors#index'
+  root to: 'dashboards#index'
   devise_for :users
   resources :users
 end
