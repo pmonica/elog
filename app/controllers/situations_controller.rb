@@ -1,4 +1,5 @@
 class SituationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_situation, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
@@ -42,6 +43,6 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description)
+      params.require(:situation).permit(:name, :description, :organization_ids => [])
     end
 end

@@ -4,4 +4,5 @@ class Organization < ActiveRecord::Base
 
   validates :name, presence: true
   validates :country, presence: true
+  validates_uniqueness_of :name
 end

@@ -10,5 +10,26 @@
   <%= @organization.country %>
 </p>
 
+<p>
+  <strong>Situations:</strong>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Situations</th>
+        <th>Created at</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @organization.situations.each do |s| %>
+        <tr>
+          <td><%= link_to s.name, s %></td>
+          <td><%= s.created_at %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</p>
+
+
 <%= link_to 'Edit', edit_organization_path(@organization) %> |
 <%= link_to 'Back', organizations_path %>

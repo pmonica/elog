@@ -10,5 +10,12 @@
   <%= @situation.description %>
 </p>
 
+<p>
+  <strong>Organizations:</strong>
+  <% @situation.organizations.each do |org| %>
+    <%= link_to org.name, org%>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_situation_path(@situation) %> |
 <%= link_to 'Back', situations_path %>
