@@ -1,4 +1,4 @@
-Rails Devise Pundit
+Elog
 ================
 
 Rails Composer, open source, supported by subscribers.
@@ -26,9 +26,9 @@ choose  Enter your selection: [rspec]
 option  Continuous testing?
 choose  Enter your selection: [none]
 option  Front-end framework?
-choose  Enter your selection: [foundation5]
+choose  Enter your selection: [bootstrap3]
 option  Add support for sending email?
-choose  Enter your selection: [sendgrid]
+choose  Enter your selection: [mandrill]
 option  Authentication?
 choose  Enter your selection: [devise]
 option  Devise modules?
@@ -38,7 +38,7 @@ choose  Enter your selection: []
 option  Authorization?
 choose  Enter your selection: [pundit]
 option  Use a form builder gem?
-choose  Enter your selection: [none]
+choose  Enter your selection: [simple_form]
 option  Add pages?
 choose  Enter your selection: [users]
 option  Set a locale?
@@ -60,4 +60,4 @@ choose  Enter your selection: [true]
 option  Use 'pry' as console replacement during development and test?
 choose  Enter your selection: [false]
 option  Use or create a project-specific rvm gemset?
-choose  Enter your selection: [false]
+choose  Enter your selection: [true]
