@@ -17,6 +17,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'pundit'
 gem 'simple_form'
+gem 'country_select'
 gem 'thin'
 group :development do
   gem 'better_errors'
