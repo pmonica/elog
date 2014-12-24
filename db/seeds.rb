@@ -38,10 +38,10 @@ mrccn = Organization.create(:name => "MRCC", :country => "Nigeria")
 fake = Organization.create(:name => "FakeOrg", :country => "Brazil")
 
 # Criar situacoes de exemplo
-primeira = Situation.create(:name => "Homem ao mar", :description => "Esta e nacional")
-segunda = Situation.create(:name => "Poluicao no guincho", :description => "Esta e local mrcc")
-terceira = Situation.create(:name => "Homicidio no guincho", :description => "Esta internacional")
-quarta = Situation.create(:name => "Terrorismo no guincho")
+primeira = Situation.create(:name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar", :level => :local, :sensitivity => :publico)
+segunda = Situation.create(:name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :local, :sensitivity => :publico)
+terceira = Situation.create(:name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :internacional, :sensitivity => :publico)
+quarta = Situation.create(:name => "Terrorismo no guincho", :level => :internacional, :sensitivity => :secreto)
 
 # Criar participacoes de exemplo
 primeira.organizations << [mrcc, comar]

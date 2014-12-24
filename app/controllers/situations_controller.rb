@@ -24,7 +24,7 @@ class SituationsController < ApplicationController
   def create
     @situation = Situation.new(situation_params)
     @situation.save
-    Rails.logger.info(@situation.errors.inspect)
+    # Rails.logger.info(@situation.errors.inspect)
     respond_with(@situation)
   end
 
@@ -44,6 +44,6 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :level, :organization_ids => [])
     end
 end

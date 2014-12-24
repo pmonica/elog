@@ -2,27 +2,20 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> Situation Detail</h3>
+     <h3><i class="glyphicon glyphicon-dashboard"></i> <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> </h3>
      <hr>
   </div>
     <div class="row">
       <div class="col-md-7">
       <p>
-      <strong>Name:</strong>
-      <%= @situation.name %>
-      </p>
-
-      <p>
-        <strong>Country:</strong>
         <%= @situation.description %>
       </p>
+      <hr>
+
+      <strong><i class="glyphicon glyphicon-comment"></i> Organizations</strong>
+      <hr>
 
       <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Organizations</th>
-          </tr>
-        </thead>
         <tbody>
           <% @situation.organizations.each do |o| %>
             <tr>
@@ -31,8 +24,23 @@
           <% end %>
         </tbody>
       </table>
+      <hr>
+
+      <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
+      <hr>
+
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="list-group">
+            <% @situation.events.each do |event| %>
+              <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <%= event.title %></a></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
     <hr>
+
     <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
     <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
   </div>
