@@ -19,14 +19,17 @@
       <%= render 'layouts/header_navigation' %>
     </header>
 
-    <div class="container">
-      <%= render 'layouts/messages' %>
-      <% if current_user %>
-        <%= render 'layouts/admin_warnings' %>
-      <% end %>
-      <!-- Load the actual main content -->
-      <%= yield %>
+    <div id="wrap">
+      <div class="container">
+        <%= render 'layouts/messages' %>
+        <% if current_user %>
+          <%= render 'layouts/admin_warnings' %>
+        <% end %>
+        <!-- Load the actual main content -->
+        <%= yield %>
+      </div>
     </div>
+
     <%= render 'layouts/footer' %>
   </body>
 </html>
