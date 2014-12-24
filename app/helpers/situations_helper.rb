@@ -5,7 +5,6 @@ module SituationsHelper
     hours = (mins / 60).round
     days  = (hours / 24).round
 
-    Rails.logger.info(days)
     if days > 0
       "#{days} days"
     elsif hours > 0
