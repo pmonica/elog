@@ -10,6 +10,13 @@ class OrganizationsController < ApplicationController
   end
 
   def show
+    org = Organization.find(params[:id])
+    situations = org.situations
+    @participations = {}
+    situations.each do |situation|
+      p = Participation.find_by situation_id: situation.id, organization_id: org.id
+      @participations[p.created_at] = situation
+    end
     respond_with(@organization)
   end
 

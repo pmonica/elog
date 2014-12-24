@@ -21,17 +21,14 @@
         <thead>
           <tr>
             <th>Situations</th>
-            <th>Created at</th>
             <th>Joined at</th>
           </tr>
         </thead>
         <tbody>
-          <% @organization.situations.each do |s| %>
+          <% @participations.each do |joined_at, situation| %>
             <tr>
-              <td><%= link_to s.name, s %></td>
-              <td><%= s.created_at %></td>
-              <%  p=Participation.find_by situation_id: s.id, organization_id: @organization.id %>
-              <td><%= p.created_at %></td>
+              <td><%= link_to situation.name, situation %></td>
+              <td><%= joined_at %></td>
             </tr>
           <% end %>
         </tbody>

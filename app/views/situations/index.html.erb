@@ -9,16 +9,14 @@
       <div class="col-md-7">
       <table class="table table-striped">
         <thead>
-          <tr><th>Name</th><th>Description</th><th>Sensitivity</th><th>Level</th><th></th><th></th><th></th></tr>
+          <tr><th>Name</th><th>Sensitivity</th><th>Level</th><th></th><th></th></tr>
         </thead>
         <tbody>
           <% @situations.each do |situation| %>
             <tr>
-              <td><%= situation.name %></td>
-              <td><%= situation.description %></td>
+              <td><%= link_to situation.name, situation %></td>
               <td><%= situation.sensitivity %></td>
               <td><%= situation.level %></td>
-              <td><%= link_to 'Show', situation %></td>
               <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
               <td><%= link_to 'Destroy', situation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
