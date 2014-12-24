@@ -1,4 +1,5 @@
 # This file should contain all the record creation needed to seed the database with its default values.
+
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
 # Examples:
@@ -11,19 +12,19 @@ puts 'CREATED ADMIN USER: ' << user.email
 
 # Criar utilizadores de exemplo
 
-User.find_or_create_by!(email: 'diogo@example.com') do |user|
+diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
         user.password = 'change'
         user.password_confirmation = 'change'
         user.confirm!
 end
 
-User.find_or_create_by!(email: 'nuno@example.com') do |user|
+nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
         user.password = 'change'
         user.password_confirmation = 'change'
         user.confirm!
 end
 
-User.find_or_create_by!(email: 'paulo@example.com') do |user|
+paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
         user.password = 'change'
         user.password_confirmation = 'change'
         user.confirm!
@@ -46,3 +47,12 @@ quarta = Situation.create(:name => "Terrorismo no guincho")
 primeira.organizations << [mrcc, comar]
 segunda.organizations << [mrcc]
 terceira.organizations << [mrccn, comar]
+
+# Criar events
+Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")
+Event.create(:user => diogo, situation: primeira, sensitivity: :secreto, level: :local, title: "O morto foi identificado")
+
+Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, title: "Homem matou outro na praca")
+Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :local, title: "Encontrada a arma do crime")
+
+Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca")
