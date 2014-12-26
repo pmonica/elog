@@ -2,31 +2,27 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> Situation</h3>
-     <hr>
-  </div>
-    <div class="row">
-      <div class="col-md-7">
-      <table class="table table-striped">
-        <thead>
-          <tr><th>Name</th><th>Sensitivity</th><th>Level</th><th></th><th></th></tr>
-        </thead>
-        <tbody>
-          <% @situations.each do |situation| %>
-            <tr>
-              <td><%= link_to situation.name, situation %></td>
-              <td><%= situation.sensitivity %></td>
-              <td><%= situation.level %></td>
-              <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
-              <td><%= link_to 'Destroy', situation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <h3><i class="glyphicon glyphicon-dashboard"></i> Situation</h3>
     <hr>
-    <%= link_to 'New Situation', new_situation_path, :type => 'button', :class => 'btn btn-primary'%>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Name</th><th>Sensitivity</th><th>Level</th><th></th><th></th></tr>
+      </thead>
+      <tbody>
+        <% @situations.each do |situation| %>
+          <tr>
+            <td><%= link_to situation.name, situation %></td>
+            <td><%= situation.sensitivity %></td>
+            <td><%= situation.level %></td>
+            <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
+            <td><%= link_to 'Destroy', situation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
+  <hr>
+  <%= link_to 'New Situation', new_situation_path, :type => 'button', :class => 'btn btn-primary'%>
 </div>
 
 

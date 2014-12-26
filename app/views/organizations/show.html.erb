@@ -2,11 +2,8 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> Organization Detail</h3>
+     <h3><i class="glyphicon glyphicon-dashboard"></i> Organization Detail <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %></h3>
      <hr>
-  </div>
-    <div class="row">
-      <div class="col-md-7">
       <p>
       <strong>Name:</strong>
       <%= @organization.name %>
@@ -35,8 +32,5 @@
       </table>
     </div>
     <hr>
-    <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %>
-    <%= link_to 'Back', organizations_path, :type => 'button', :class => 'btn btn-primary' %>
-  </div>
 </div>
 

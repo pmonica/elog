@@ -2,11 +2,9 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> </h3>
+     <h3><i class="glyphicon glyphicon-dashboard"></i> <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %></h3>
      <hr>
-  </div>
-    <div class="row">
-      <div class="col-md-7">
+
       <p>
         <%= @situation.description %>
       </p>
@@ -40,9 +38,5 @@
       </div>
     </div>
     <hr>
-
-    <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
-    <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
-  </div>
 </div>
 
