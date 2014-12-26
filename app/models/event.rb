@@ -4,4 +4,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :situation
+  has_many :comments
+
+  validates_presence_of :user, :title, :situation, :sensitivity, :level
 end

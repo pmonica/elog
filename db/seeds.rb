@@ -51,10 +51,20 @@ segunda.organizations << [mrcc]
 terceira.organizations << [mrccn, comar]
 
 # Criar events
-Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")
-Event.create(:user => diogo, situation: primeira, sensitivity: :secreto, level: :local, title: "O morto foi identificado")
+evento1 = Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")
+evento2 = Event.create(:user => diogo, situation: primeira, sensitivity: :secreto, level: :local, title: "O morto foi identificado")
 
-Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, title: "Homem matou outro na praca")
-Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :local, title: "Encontrada a arma do crime")
+evento3 = Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, title: "Homem matou outro na praca")
+evento4 = Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :local, title: "Encontrada a arma do crime")
 
-Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca")
+evento5 = Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca")
+
+# Criar comments
+
+c = Comment.create(:body => "O homem tinha uma tshirt vermelha", :event => evento1, :user => diogo)
+c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1, :user => diogo, :sensitivity => :secreto)
+
+c = Comment.create(:body => "O homem matou o outro com uma faca", :event => evento3, :user => diogo)
+c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo)
+
+c = Comment.create(:body => "A bomba era amarela", :event => evento5, :user => diogo)
