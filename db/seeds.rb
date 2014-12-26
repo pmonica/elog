@@ -9,33 +9,35 @@
 user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 
-
-# Criar utilizadores de exemplo
-
-diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
-        user.password = 'change'
-        user.password_confirmation = 'change'
-        user.confirm!
-end
-
-nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
-        user.password = 'change'
-        user.password_confirmation = 'change'
-        user.confirm!
-end
-
-paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
-        user.password = 'change'
-        user.password_confirmation = 'change'
-        user.confirm!
-end
-
-
 # Criar organizacoes de exemplo
 mrcc = Organization.create(:name => "MRCC", :country => "Portugal")
 comar = Organization.create(:name => "COMAR", :country => "Portugal")
 mrccn = Organization.create(:name => "MRCC", :country => "Nigeria")
 fake = Organization.create(:name => "FakeOrg", :country => "Brazil")
+
+# Criar utilizadores de exemplo
+
+diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
+  user.organization = comar
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
+
+nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
+  user.organization = mrcc
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
+
+paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
+  user.organization = mrccn
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
+
 
 # Criar situacoes de exemplo
 primeira = Situation.create(:name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar", :level => :local, :sensitivity => :publico)

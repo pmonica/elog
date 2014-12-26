@@ -1,7 +1,8 @@
 class Organization < ActiveRecord::Base
   has_many :participations
   has_many :situations, :through => :participations
+  has_many :users
 
-  validates :name, presence: true
-  validates :country, presence: true
+  validates_presence_of :name
+  validates_presence_of :country
 end
