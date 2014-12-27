@@ -66,5 +66,8 @@ c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1
 
 c = Comment.create(:body => "O homem matou o outro com uma faca", :event => evento3, :user => diogo)
 c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo)
+c = Comment.create(:body => "A faca tinha um cabo metalico", :event => evento4, :user => diogo)
+c = Comment.create(:body => "A faca tinha era afiada", :event => evento4, :user => diogo)
+
 
 c = Comment.create(:body => "A bomba era amarela", :event => evento5, :user => diogo)

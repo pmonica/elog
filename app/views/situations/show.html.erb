@@ -31,12 +31,29 @@
         <div class="col-md-12">
           <ul class="list-group">
             <% @situation.events.each do |event| %>
-              <li class="list-group-item"><a href="#"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <%= event.title %></a></li>
+              <% if event.comments.count != 0 %>
+                <li class="list-group-item"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <a href="javascript:;"><%= event.title %></a> <span class="caret"></span></li>
+                <div id='comments'>
+                  <% event.comments.each do |comment| %>
+                    <div class="bs-callout bs-callout-info">
+                      <p><%= comment.body %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <li class="list-group-item"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <a href="javascript:;"><%= event.title %></a></li>
+              <% end %>
             <% end %>
-          </ul>
-        </div>
+          </div>
+        </ul>
       </div>
     </div>
     <hr>
 </div>
+<script>
+  $('.list-group-item').next('div').hide();
+    $('.list-group-item').click(function(){
+      $(this).next('div').slideToggle();
+  });
+</script>
 
