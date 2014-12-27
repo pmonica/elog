@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :organization do
-    name "MyString"
-country "MyString"
+    sequence(:name) { |n| "Organizacao#{n}" }
+    country "Example Country"
   end
 
 end
+

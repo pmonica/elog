@@ -1,15 +1,17 @@
 class SituationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_situation, only: [:show, :edit, :update, :destroy]
+  after_action :verify_policy_scoped, :only => :index
 
   respond_to :html
 
   def index
-    @situations = Situation.all
+    @situations = policy_scope(Situation)
     respond_with(@situations)
   end
 
   def show
+    authorize @situation
     respond_with(@situation)
   end
 
