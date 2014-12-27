@@ -5,8 +5,7 @@ class Situation < ActiveRecord::Base
   has_many :participations
   has_many :organizations, :through => :participations
   has_many :events
+  belongs_to :user
 
-  validates :name, presence: true
-  validates :sensitivity, presence: true
-  validates :level, presence: true
+  validates_presence_of :name, :sensitivity, :level, :user
 end

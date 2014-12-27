@@ -3,6 +3,5 @@ FactoryGirl.define do
     sequence(:name) { |n| "Organizacao#{n}" }
     country "Example Country"
   end
-
 end
 

@@ -1,10 +1,10 @@
 FactoryGirl.define do
   factory :event do
-    user_id 1
-title "MyString"
-situation_id 1
-sensitivity 1
-level 1
-  end
+    association :situation, factory: :situation
+    association :user, factory: :user
 
+    sequence(:title) { |n| "This is a new event with ID: #{n}" }
+    level 1
+    sensitivity 1
+  end
 end

@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   validates_presence_of :event, :user, :body
-  after_initialize :set_default_levels, :if => :new_record?
+  after_create :set_default_levels, :if => :new_record?
 
   private
 
