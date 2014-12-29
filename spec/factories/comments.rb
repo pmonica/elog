@@ -4,9 +4,9 @@ FactoryGirl.define do
     association :user, factory: :user
 
     body 'This is a cool comment!'
-    sensitivity 1
-    level 1
-  end
+    level :local
+    sensitivity :secreto
+ end
 
   trait :with_comments do
     after :create do |event|

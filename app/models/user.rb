@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
-  enum role: [:user, :vip, :admin]
-  after_initialize :set_default_role, :if => :new_record?
+  enum role: { p1: 0, p2: 1, p3: 2, admin: 4 }
+  enum clearance: { publico: 0, privado: 1, secreto: 2}
 
-  def set_default_role
-    self.role ||= :user
+  after_initialize :set_default_role_and_sensitivity
+
+  def set_default_role_and_sensitivity
+    self.role ||= :p1
+    self.clearance ||= :publico
   end
 
   # Include default devise modules. Others available are:

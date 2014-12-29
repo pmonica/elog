@@ -13,12 +13,14 @@ puts 'CREATED ADMIN USER: ' << user.email
 mrcc = Organization.create(:name => "MRCC", :country => "Portugal")
 comar = Organization.create(:name => "COMAR", :country => "Portugal")
 mrccn = Organization.create(:name => "MRCC", :country => "Nigeria")
-fake = Organization.create(:name => "FakeOrg", :country => "Brazil")
+inem = Organization.create(:name => "INEM", :country => "Brazil")
 
 # Criar utilizadores de exemplo
 
 diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
   user.organization = comar
+  user.clearance = :secreto
+  user.role = :p3
   user.password = 'change'
   user.password_confirmation = 'change'
   user.confirm!
@@ -26,6 +28,8 @@ end
 
 nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
   user.organization = mrcc
+  user.clearance = :privado
+  user.role = :p2
   user.password = 'change'
   user.password_confirmation = 'change'
   user.confirm!
@@ -38,17 +42,33 @@ paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
   user.confirm!
 end
 
+adilson = User.find_or_create_by!(email: 'adilson@example.com') do |user|
+  user.organization = inem
+  user.clearance = :secreto
+  user.role = :p3
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
 # Criar situacoes de exemplo
-primeira = Situation.create(:user => diogo, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar", :level => :local, :sensitivity => :publico)
-segunda = Situation.create(:user => diogo, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :local, :sensitivity => :publico)
-terceira = Situation.create(:user => nuno, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :internacional, :sensitivity => :publico)
-quarta = Situation.create(:user => paulo, :name => "Terrorismo no guincho", :level => :internacional, :sensitivity => :secreto)
+primeira = Situation.create(:user => adilson, :organization => adilson.organization, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil", :level => :local, :sensitivity => :publico)
+segunda = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :national, :sensitivity => :publico)
+terceira = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :national, :sensitivity => :privado)
+quarta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Terrorismo no guincho", :level => :internacional, :sensitivity => :secreto)
+quinta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Empanado", :level => :internacional, :sensitivity => :privado)
+sexta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Afundado", :level => :national, :sensitivity => :secreto)
+setima = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Apanha de ostras", :level => :local, :sensitivity => :privado)
 
 # Criar participacoes de exemplo
-primeira.organizations << [mrcc, comar]
-segunda.organizations << [mrcc]
-terceira.organizations << [mrccn, comar]
+primeira.organizations << [inem]
+segunda.organizations << [comar, mrcc]
+terceira.organizations << [mrcc, comar]
+quarta.organizations << [mrccn, comar]
+quinta.organizations << [mrccn, inem, comar]
+sexta.organizations << [comar]
+setima.organizations << [mrcc, comar]
+
 
 # Criar events
 evento1 = Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")

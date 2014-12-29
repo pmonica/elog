@@ -6,6 +6,16 @@ class Situation < ActiveRecord::Base
   has_many :organizations, :through => :participations
   has_many :events
   belongs_to :user
+  belongs_to :organization, :foreign_key => :owner_organization
 
   validates_presence_of :name, :sensitivity, :level, :user
+
+  def self.active
+    where(active: true)
+  end
+
+  def owner_organization
+    organization
+  end
+
 end

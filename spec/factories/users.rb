@@ -1,10 +1,12 @@
 FactoryGirl.define do
   factory :user do
-    association :organization, factory: :organization
+    association :organization
     confirmed_at Time.now
     name "Test User"
     sequence(:email) { |n| "test#{n}@example.com" }
     password "please123"
+    role :p1
+    clearance :publico
 
     trait :admin do
       role 'admin'

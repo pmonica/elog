@@ -2,6 +2,7 @@ class SituationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_situation, only: [:show, :edit, :update, :destroy]
   after_action :verify_policy_scoped, :only => :index
+  after_action :verify_authorized, :only => :show
 
   respond_to :html
 
@@ -24,8 +25,10 @@ class SituationsController < ApplicationController
   end
 
   def create
-    @situation = Situation.new(situation_params)
+    new_params = situation_params.merge(owner_organization: current_user.organization.id, user: current_user)
+    @situation = Situation.new(new_params)
     @situation.save
+
     respond_with(@situation)
   end
 
