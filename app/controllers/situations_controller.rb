@@ -57,7 +57,6 @@ class SituationsController < ApplicationController
       # Ensure that situation is created with the right owner organization (of the user that created it), and the right user
       new_params = situation_params.merge(owner_organization: current_user.organization.id, user: current_user)
 
-
       # # Ensure that the user's organization is included as a participant
       new_params[:organization_ids] = [] if new_params[:organization_ids].nil?
 
@@ -65,7 +64,6 @@ class SituationsController < ApplicationController
         new_params[:organization_ids] << current_user.organization.id.to_s
       end
 
-      # binding.pry
       new_params
     end
 

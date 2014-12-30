@@ -20,6 +20,8 @@ class SituationPolicy < ApplicationPolicy
   end
 
   def show?
+    return true if user.admin?
+
     user_clearance = User.clearances[user.clearance]
     situation_sensitivity = Situation.sensitivities[record.sensitivity]
 
@@ -30,10 +32,12 @@ class SituationPolicy < ApplicationPolicy
   end
 
   def create?
-    user.p3?
+    user.admin? || user.p3?
   end
 
   def update?
+    return true if user.admin?
+
     show? && user.p3? && record.owner_organization == user.organization
   end
 

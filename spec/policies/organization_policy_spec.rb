@@ -2,27 +2,52 @@ require 'spec_helper'
 
 describe OrganizationPolicy do
 
-  let(:user) { User.new }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:policy_scope) { OrganizationPolicy::Scope.new(user, Organization).resolve }
+
 
   subject { OrganizationPolicy }
 
-  permissions ".scope" do
-    pending "add some examples to (or delete) #{__FILE__}"
+  permissions :show? do
+    it "does not list organizations that are not the user's" do
+      new_organization = FactoryGirl.create(:organization)
+      expect(policy_scope).to eq [user.organization]
+      expect(subject).not_to permit(user, new_organization)
+    end
+
+    it "lists the organization that the user belongs to" do
+      expect(policy_scope).to eq [user.organization]
+      expect(subject).to permit(user, user.organization)
+    end
+
+    it "lists all organizations when the user is p3" do
+      new_organization = FactoryGirl.create(:organization)
+      user.update_attributes(role: :p3)
+      expect(policy_scope).to eq [new_organization, user.organization]
+      expect(subject).to permit(user, new_organization)
+    end
+
+    it "lists all organizations when the user is admin" do
+      new_organization = FactoryGirl.create(:organization)
+      user.update_attributes(role: :admin)
+      expect(policy_scope).to eq [new_organization, user.organization]
+      expect(subject).to permit(user, new_organization)
+    end
   end
 
   permissions :create? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    it "creates a new organization when user is admin" do
+      user.update_attributes(role: :admin)
+      expect(subject).to permit(user, Organization)
+    end
 
-  permissions :show? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
+    it "does not allow user to create an organization when p3" do
+      user.update_attributes(role: :p3)
+      expect(subject).not_to permit(user, Organization)
+    end
 
-  permissions :update? do
-    pending "add some examples to (or delete) #{__FILE__}"
-  end
-
-  permissions :destroy? do
-    pending "add some examples to (or delete) #{__FILE__}"
+    it "does not allow user to create an organization when p3" do
+      expect(subject).not_to permit(user, Organization)
+    end
   end
 end
