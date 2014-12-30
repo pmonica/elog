@@ -55,8 +55,8 @@ end
 primeira = Situation.create(:user => adilson, :organization => adilson.organization, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil", :level => :local, :sensitivity => :publico)
 segunda = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :national, :sensitivity => :publico)
 terceira = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :national, :sensitivity => :privado)
-quarta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Terrorismo no guincho", :level => :internacional, :sensitivity => :secreto)
-quinta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Empanado", :level => :internacional, :sensitivity => :privado)
+quarta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Terrorismo no guincho", :level => :international, :sensitivity => :secreto)
+quinta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Empanado", :level => :international, :sensitivity => :privado)
 sexta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Afundado", :level => :national, :sensitivity => :secreto)
 setima = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Apanha de ostras", :level => :local, :sensitivity => :privado)
 
