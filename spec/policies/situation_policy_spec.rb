@@ -85,6 +85,14 @@ describe SituationPolicy do
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
+
+    it "allows user with private to access public situation" do
+      situation.update_attributes(sensitivity: :publico)
+      user.update_attributes(clearance: :privado)
+
+      expect(policy_scope).to eq [situation]
+      expect(subject).to permit(user, situation)
+    end
   end
 
   permissions :create? do

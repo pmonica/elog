@@ -18,6 +18,7 @@ inem = Organization.create(:name => "INEM", :country => "Brazil")
 # Criar utilizadores de exemplo
 
 diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
+  user.name = "Diogo Monica"
   user.organization = comar
   user.clearance = :secreto
   user.role = :p3
@@ -27,6 +28,7 @@ diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
 end
 
 nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
+  user.name = "Nuno Monica"
   user.organization = mrcc
   user.clearance = :privado
   user.role = :p2
@@ -36,6 +38,7 @@ nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
 end
 
 paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
+  user.name = "Paulo Monica"
   user.organization = mrccn
   user.password = 'change'
   user.password_confirmation = 'change'
@@ -43,6 +46,7 @@ paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
 end
 
 adilson = User.find_or_create_by!(email: 'adilson@example.com') do |user|
+  user.name = "Adsilson Fagundes"
   user.organization = inem
   user.clearance = :secreto
   user.role = :p3

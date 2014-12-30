@@ -4,10 +4,10 @@
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :description %>
-    <%= f.input :sensitivity, collection: Situation.sensitivities.keys, :selected => 'secreto' %>
-    <%= f.input :level, collection: Situation.levels.keys, :selected => 'local' %>
+    <%= f.input :sensitivity, collection: @sensitivities.keys %>
+    <%= f.input :level, collection: Situation.levels.keys %>
 
-    <%= f.association :organizations, :label_method => lambda { |org| "#{org.name} - #{org.country}"},          as: :check_boxes%>
+    <%= f.association :organizations, :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
   </div>
 
   <div class="form-actions">

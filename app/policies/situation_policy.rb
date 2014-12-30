@@ -8,7 +8,7 @@ class SituationPolicy < ApplicationPolicy
         user_clearance = User.clearances[user.clearance]
         levels = Situation.levels
         scope.active.joins(:organizations)
-          .where("organization_id = :organization_id AND sensitivity <= :user_clearance
+          .where("participations.organization_id = :organization_id AND sensitivity <= :user_clearance
           AND (((owner_organization = :organization_id) AND (level = :local_level)) OR
             ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) AND (level = :national_level)) OR
             (level = :international_level))",
@@ -20,9 +20,12 @@ class SituationPolicy < ApplicationPolicy
   end
 
   def show?
-    record.active? && record.organizations.include?(user.organization) && record.sensitivity <= user.clearance &&
-      ((record.organization == user.organization && record.local?) ||
-       (record.organization.country == user.organization.country && record.national?) ||
+    user_clearance = User.clearances[user.clearance]
+    situation_sensitivity = Situation.sensitivities[record.sensitivity]
+
+    record.active? && record.organizations.include?(user.organization) && situation_sensitivity <= user_clearance &&
+      ((record.owner_organization == user.organization && record.local?) ||
+       (record.owner_organization.country == user.organization.country && record.national?) ||
        (record.international?))
   end
 
@@ -31,7 +34,7 @@ class SituationPolicy < ApplicationPolicy
   end
 
   def update?
-    show? && user.p3? && record.active?
+    show? && user.p3? && record.owner_organization == user.organization
   end
 
   def destroy?
