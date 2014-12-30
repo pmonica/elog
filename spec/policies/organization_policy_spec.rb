@@ -41,12 +41,12 @@ describe OrganizationPolicy do
       expect(subject).to permit(user, Organization)
     end
 
-    it "does not allow user to create an organization when p3" do
+    it "does not allow user to create an organization when p1, p2 or p3" do
       user.update_attributes(role: :p3)
       expect(subject).not_to permit(user, Organization)
-    end
-
-    it "does not allow user to create an organization when p3" do
+      user.update_attributes(role: :p2)
+      expect(subject).not_to permit(user, Organization)
+      user.update_attributes(role: :p1)
       expect(subject).not_to permit(user, Organization)
     end
   end
