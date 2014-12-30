@@ -8,6 +8,10 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+gem 'mysql2'
+gem 'rails_12factor', group: :production
+gem 'unicorn'
+gem 'foreman'
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
@@ -18,7 +22,6 @@ gem 'devise'
 gem 'pundit'
 gem 'simple_form'
 gem 'country_select'
-gem 'thin'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
