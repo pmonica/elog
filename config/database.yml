@@ -8,6 +8,7 @@ default: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
+  encoding: unicode
 
 development:
   <<: *default
@@ -21,7 +22,7 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: mysql
+  adapter: pg
   database: library_production
   username: root
   password: <%= ENV["ADMIN_NAME"] %>
