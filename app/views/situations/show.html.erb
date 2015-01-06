@@ -3,16 +3,14 @@
 
   <div class="col-sm-9">
      <h3><i class="glyphicon glyphicon-dashboard"></i> <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %></h3>
-     <hr>
-
-      <p>
-        <%= @situation.description %>
-      </p>
-      <hr>
-
-      <strong><i class="glyphicon glyphicon-comment"></i> Organizations</strong>
-      <hr>
-
+     
+    <hr>
+    <p>
+      <%= @situation.description %>
+    </p>
+    <hr>
+    <strong><i class="glyphicon glyphicon-comment"></i> Organizations</strong>
+    <hr>
       <table class="table table-striped">
         <tbody>
           <% @situation.organizations.each do |o| %>
@@ -22,38 +20,41 @@
           <% end %>
         </tbody>
       </table>
-      <hr>
+    <!--<hr>-->
+  </div>
 
-      <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
-      <hr>
+  <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
+  <hr>
+  <div class="row">
 
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="list-group">
-            <% @situation.events.each do |event| %>
-              <% if event.comments.count != 0 %>
-                <li class="list-group-item"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <a href="javascript:;"><%= event.title %></a> <span class="caret"></span></li>
-                <div id='comments'>
-                  <% event.comments.each do |comment| %>
-                    <div class="bs-callout bs-callout-info">
-                      <p><%= comment.body %></p>
+        <% @situation.events.each do |event| %>
+          <div class="col-md-12">
+             
+                <% if event.comments.count != 0 %>
+                  <% u=User.find_by id: event.user_id %>
+                  <% o=Organization.find_by id: u.organization_id %>
+                  <div class="col-md-3"> <small>(<%= event.created_at %>)</small> <span class="glyphicon glyphicon-chevron-right"></span> </div> 
+                  <div class="col-md-1"> <%= u.name %> </div>
+                  <div class="col-md-1"> <%= o.name %> </div>
+                  <div class="col-md-7"> <a href="javascript:;" onclick="$(comments_<%= event.id %>).toggle();"> <%= event.title %> </a>  </div>
+                    <div id="comments_<%= event.id %>" style="display:none"; >
+                      <% event.comments.each do |comment| %>
+                        <div class="bs-callout bs-callout-info">
+                          <p><%= comment.body %></p>
+                        </div>
+                      <% end %>
                     </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <li class="list-group-item"><i class="glyphicon glyphicon-flash"></i> <small>(<%= time_since(event.created_at) %> ago)</small> <a href="javascript:;"><%= event.title %></a></li>
-              <% end %>
-            <% end %>
+                <% else %>
+                  <div class="col-md-3"> <small>(<%= event.created_at %>)</small> <span class="glyphicon glyphicon-chevron-right"></span></div>
+                  <div class="col-md-1"> <%= u.name %> </div>
+                  <div class="col-md-1"> <%= o.name %> </div>
+                  <div class="col-md-7"> <%= event.title %> </div>
+
+                <% end %>
+                
+                      
           </div>
-        </ul>
-      </div>
-    </div>
-    <hr>
+        <% end %>
+  </div>  
 </div>
-<script>
-  $('.list-group-item').next('div').hide();
-    $('.list-group-item').click(function(){
-      $(this).next('div').slideToggle();
-  });
-</script>
 
