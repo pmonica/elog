@@ -6,15 +6,25 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-user = CreateAdminService.new.call
+
 
 # Criar organizacoes de exemplo
 mrcc = Organization.create(:name => "MRCC", :country => "Portugal")
 comar = Organization.create(:name => "COMAR", :country => "Portugal")
 mrccn = Organization.create(:name => "MRCC", :country => "Nigeria")
 inem = Organization.create(:name => "INEM", :country => "Brazil")
+orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal")
+
+# Criar administrador
+user = CreateAdminService.new.call
+  user.name = "Admin"
+  user.organization = orgadmin
+  user.clearance = :secreto
+  user.role = :admin
+  user.save!
 
 # Criar utilizadores de exemplo
+
 
 diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
   user.name = "Diogo Monica"

@@ -7,10 +7,11 @@
     <%= f.input :sensitivity, collection: @sensitivities.keys %>
     <%= f.input :level, collection: Situation.levels.keys %>
 
-    <%= f.association :organizations, :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
+    <%= f.association :organizations, collection: policy_scope(Organization), :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit %>
+    
   </div>
 <% end %>
