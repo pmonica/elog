@@ -51,12 +51,14 @@
              <% end %>                    
           <% end %>
 
-          <!-- User name and Organization, with Font code for "Decision" -->
+          <!-- User name, with Font code for "Decision" -->
           <% if event.decision  %>
-              <div class="col-md-2"> <kbd> <%= event.user.name %> </kbd>  </div>
+              <div class="col-md-2">  <kbd> <%= event.user.name %> </kbd>  </div>
           <% else %>
               <div class="col-md-2"> <%= event.user.name %> </div>
           <% end %>
+
+          <!-- User organization, with Font code for "Decision" -->
           <% if event.decision  %>
               <div class="col-md-1"> <kbd> <%= event.user.organization.name %> </kbd> </div>
           <% else %>
@@ -66,22 +68,27 @@
 
           <% if event.comments.count != 0 %>
              <div class="col-md-6"> <a href="javascript:;" onclick="$(comments_<%= event.id %>).toggle();"> <%= event.title %> </a>  </div>
-               <div id="comments_<%= event.id %>" style="display:none"; >
-                 <hr>
-                 <% event.comments.each do |comment| %>
-                   <div class="bs-callout bs-callout-info">
-                     <p><%= comment.body %></p>
-                   </div>
-                 <% end %>
-               </div>
-
           <% else %>
              <div class="col-md-6"> <p> <%= event.title %> </p></div>
           <% end %>
 
-
        </div>
+
     </div>
+
+    <div id="comments_<%= event.id %>" style="display:none"; >
+       <% event.comments.each do |comment| %>
+         <div class="row">
+           <div class="col-md-1"> </div>
+           <div class="col-md-9"> 
+               <div class="bs-callout bs-callout-info">
+                   <%= comment.body %> 
+               </div>
+           </div>
+         </div>  
+       <% end %>
+    </div>
+
   <% end %>
 
 </div>

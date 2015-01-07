@@ -80,6 +80,6 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :sensitivity, :level, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :organization_ids => [])
     end
 end

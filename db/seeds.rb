@@ -55,7 +55,7 @@ paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
 end
 
 adilson = User.find_or_create_by!(email: 'adilson@example.com') do |user|
-  user.name = "Adsilson Fagundes"
+  user.name = "Adilson Fagundes"
   user.organization = inem
   user.clearance = :secreto
   user.role = :p3
@@ -87,17 +87,17 @@ setima.organizations << [mrcc, comar]
 evento1 = Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")
 evento2 = Event.create(:user => diogo, situation: primeira, sensitivity: :secreto, level: :local, title: "O morto foi identificado")
 
-evento3 = Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, title: "Homem matou outro na praca")
+evento3 = Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, decision: true, title: "Homem matou outro na praca")
 evento4 = Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :local, title: "Encontrada a arma do crime")
 
-evento5 = Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca")
+evento5 = Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca. A razao pela qual ela não rebentou não é, de momento, conhecida. Há quem diga que não recentou porque, sendo uma bomba de ar manual, daquelas de dar ao pedal, e não estando lá niguém a pedalar, dificilmente aquilo poderia ter criado pressão para rebentar. Mas o facto é, que, honestamente, não sabemos")
 
 # Criar comments
 
 c = Comment.create(:body => "O homem tinha uma tshirt vermelha", :event => evento1, :user => diogo)
 c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1, :user => diogo, :sensitivity => :secreto)
 
-c = Comment.create(:body => "O homem matou o outro com uma faca", :event => evento3, :user => diogo)
+c = Comment.create(:body => "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas unhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas.", :event => evento3, :user => diogo)
 c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo)
 c = Comment.create(:body => "A faca tinha um cabo metalico", :event => evento4, :user => diogo)
 c = Comment.create(:body => "A faca tinha era afiada", :event => evento4, :user => diogo)
