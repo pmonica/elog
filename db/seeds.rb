@@ -87,8 +87,8 @@ setima.organizations << [mrcc, comar]
 evento1 = Event.create(:user => diogo, situation: primeira, sensitivity: :publico, level: :local, title: "O homem caiu ao mar na figueira da foz")
 evento2 = Event.create(:user => diogo, situation: primeira, sensitivity: :secreto, level: :local, title: "O morto foi identificado")
 
-evento3 = Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :local, decision: true, title: "Homem matou outro na praca")
-evento4 = Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :local, title: "Encontrada a arma do crime")
+evento3 = Event.create(:user => diogo, situation: terceira, sensitivity: :publico, level: :international, decision: true, title: "Homem matou outro na praca")
+evento4 = Event.create(:user => diogo, situation: terceira, sensitivity: :privado, level: :national, title: "Encontrada a arma do crime")
 
 evento5 = Event.create(:user => diogo, situation: quarta, sensitivity: :secreto, level: :local, title: "Foi encontrada uma bomba na praca. A razao pela qual ela não rebentou não é, de momento, conhecida. Há quem diga que não recentou porque, sendo uma bomba de ar manual, daquelas de dar ao pedal, e não estando lá niguém a pedalar, dificilmente aquilo poderia ter criado pressão para rebentar. Mas o facto é, que, honestamente, não sabemos")
 

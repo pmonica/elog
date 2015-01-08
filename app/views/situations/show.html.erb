@@ -26,6 +26,7 @@
   <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
   <hr>
 
+  <!-- Agora mostra os eventos -->
   <% @situation.events.each do |event| %>
 
     <% if event.sensitivity == "secreto" %>
@@ -76,15 +77,54 @@
 
     </div>
 
+    <!-- Agora mostra os comments do evento -->
     <div id="comments_<%= event.id %>" style="display:none"; >
        <% event.comments.each do |comment| %>
          <div class="row">
+           <!-- Indenta -->          
            <div class="col-md-1"> </div>
-           <div class="col-md-9"> 
-               <div class="bs-callout bs-callout-info">
-                   <%= comment.body %> 
+
+           <!-- Comecemos com o evento -->
+            <div class="col-md-11">
+
+
+              <% if comment.sensitivity == "secreto" %>
+                  <div class="bs-callout bs-callout-info-d" >
+              <% else %>
+                  <% if comment.sensitivity == "privado" %>
+                     <div class="bs-callout bs-callout-info-w" >
+                  <% else %>
+                     <div class="bs-callout bs-callout-info-s" >
+                  <% end %>                    
+              <% end %>
+              
+                  <div class="row">
+
+                      <!-- Creation time with symbol code for "Local/National/International" -->
+                      <% if comment.level == "international" %>
+                          <div class="col-md-3"> <small>(<%= comment.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
+                      <% else %>
+                         <% if comment.level == "national" %>
+                            <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
+                         <% else %>
+                            <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+                         <% end %>                    
+                      <% end %>
+
+                      <!-- User name -->
+                      <div class="col-md-2"> <%= comment.user.name %> </div>
+
+
+                      <!-- User organization -->
+                      <div class="col-md-1"> <%= comment.user.organization.name %> </div>
+
+                      <!-- Comment body -->
+                      <div class="col-md-5"> <%= comment.body %> </div>
+                  </div>
+
                </div>
            </div>
+
          </div>  
        <% end %>
     </div>

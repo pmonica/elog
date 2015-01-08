@@ -120,7 +120,18 @@ i {
 }
 .bs-callout-info {
     border-left-color: #5bc0de;
+    background-color: #f0f7fd;
 }
 .bs-callout-info h4 {
     color: #5bc0de;
+}
+.bs-callout-info-s {
+    border-left-color: #5cb85c;
+    background-color: #f0f7fd;
+}.bs-callout-info-w {
+    border-left-color: #f0ad4e;
+    background-color: #f0f7fd;
+}.bs-callout-info-d {
+    border-left-color: #d9534f;
+    background-color: #f0f7fd;
 }

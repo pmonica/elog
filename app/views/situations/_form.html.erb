@@ -8,15 +8,21 @@
     <%= f.input :level, collection: Situation.levels.keys %>
 
     <%= f.association :organizations, collection: policy_scope(Organization), :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
-     <div class="row" style="border-style: double; background-color: #b0c4de">
-        <div class="col-md-2" style="background-color: #b0c4de">
-          <%= f.input :active, as: :radio_buttons %>
-        </div>
-        <div class="col-md-5" style="background-color: #b0c4de">
-          <h3> Warning </h3>
-          <p> Deactivation cannot be undone </p>
-        </div>
-     </div>
+
+ 
+     <!-- If this is am edit operation, offer the possibility of deactivating the Situation -->
+     <% if @editar %>
+       <div class="row" style="border-style: double; background-color: #b0c4de">
+          <div class="col-md-2" style="background-color: #b0c4de">
+            <%= f.input :active, as: :radio_buttons %>
+          </div>
+          <div class="col-md-5" style="background-color: #b0c4de">
+            <h3> Warning </h3>
+            <p> Deactivation cannot be undone </p>
+          </div>
+       </div>
+     <% end %>
+  
   </div>
 
   <div class="form-actions"> <%= f.button :submit %>  </div>
