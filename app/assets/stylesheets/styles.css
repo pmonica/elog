@@ -66,11 +66,11 @@ i {
 
 
 .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
+    padding: 10px;
+    margin: 5px 0;
     border: 1px solid #eee;
     border-left-width: 5px;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 .bs-callout h4 {
     margin-top: 0;
@@ -99,18 +99,21 @@ i {
 }
 .bs-callout-success {
     border-left-color: #5cb85c;
+    background-color: #dff0d8;
 }
 .bs-callout-success h4 {
     color: #5cb85c;
 }
 .bs-callout-danger {
     border-left-color: #d9534f;
+    background-color: #fcf2f2;
 }
 .bs-callout-danger h4 {
     color: #d9534f;
 }
 .bs-callout-warning {
     border-left-color: #f0ad4e;
+    background-color: #fefbed;
 }
 .bs-callout-warning h4 {
     color: #f0ad4e;

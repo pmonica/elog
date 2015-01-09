@@ -2,7 +2,7 @@ class OrganizationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin? || user.p3?
-        scope.all
+        scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})
       else
         scope.where(id: user.organization.id)
       end

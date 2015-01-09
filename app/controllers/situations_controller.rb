@@ -20,7 +20,7 @@ class SituationsController < ApplicationController
 
   def new
     authorize Situation
-
+    @organizations = policy_scope(Organization)
     @situation = Situation.new
     respond_with(@situation)
   end
@@ -54,17 +54,20 @@ class SituationsController < ApplicationController
 
   private
     def augmented_situation_params
-      # Ensure that situation is created with the right owner organization (of the user that created it), and the right user
-      new_params = situation_params.merge(owner_organization: current_user.organization.id, user: current_user)
 
-      # # Ensure that the user's organization is included as a participant
-      new_params[:organization_ids] = [] if new_params[:organization_ids].nil?
+        # Ensure that situation is created with the right owner organization (of the user that created it), and the right user
+        new_params = situation_params.merge(owner_organization: current_user.organization.id, user: current_user)
 
-      unless new_params[:organization_ids].include?(current_user.organization.id.to_s)
-        new_params[:organization_ids] << current_user.organization.id.to_s
-      end
+        # # Ensure that the user's organization is included as a participant
+        new_params[:organization_ids] = [] if new_params[:organization_ids].nil?
 
-      new_params
+        unless new_params[:organization_ids].include?(current_user.organization.id.to_s)
+          new_params[:organization_ids] << current_user.organization.id.to_s
+      
+        end
+
+        new_params
+    
     end
 
     def set_sensitivites
@@ -77,6 +80,6 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :sensitivity, :level, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :organization_ids => [])
     end
 end
