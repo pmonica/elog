@@ -27,6 +27,7 @@ class SituationsController < ApplicationController
 
   def edit
     authorize @situation
+    @editar=true
   end
 
   def create
