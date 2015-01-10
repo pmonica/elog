@@ -80,7 +80,9 @@
 
     <!-- Agora mostra os comments do evento -->
     <div id="comments_<%= event.id %>" style="display:none"; >
-       <% event.comments.each do |comment| %>
+
+       <% @comments=policy_scope(event.comments) %>
+       <% @comments.each do |comment| %>
          <div class="row">
            <!-- Indenta -->          
            <div class="col-md-1"> </div>

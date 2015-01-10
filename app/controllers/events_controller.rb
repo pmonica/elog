@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_sensitivites, only: [:edit, :new, :create]
+  before_action :set_sensitivites, only: [:create]
   after_action :verify_authorized
   
   respond_to :html
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
 
   def create
     authorize Event
-    @event = Event.new(event_params)
+    @event = Event.new(augmented_event_params)
     @event.save
     respond_with(@event)
   end
@@ -46,7 +46,7 @@ class EventsController < ApplicationController
 
   private
 
-    def augmented_situation_params
+    def augmented_event_params
         # Ensure that the event is created with correct user and correct organization (no mistification)
         new_params = event_params.merge(owner_organization: current_user.organization.id, user: current_user)
     end
@@ -57,9 +57,9 @@ class EventsController < ApplicationController
     end
 
 
-    def set_event
-      @event = Event.find(params[:id])
-    end
+    # def set_event
+    #   @event = Event.find(params[:id])
+    # end
 
     def event_params
       params.require(:event).permit(:title, :sensitivity, :level)

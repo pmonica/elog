@@ -94,13 +94,15 @@ evento5 = Event.create(:user => diogo, :organization => diogo.organization, situ
 
 # Criar comments
 
-c = Comment.create(:body => "O homem tinha uma tshirt vermelha", :event => evento1, :user => diogo)
-c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1, :user => diogo, :sensitivity => :secreto)
+c = Comment.create(:body => "O homem tinha uma tshirt vermelha", :event => evento1, :user => diogo, :organization => diogo.organization, sensitivity: :publico, level: :local)
+c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1, :user => diogo, :organization => diogo.organization, :sensitivity => :secreto, level: :local)
 
-c = Comment.create(:body => "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas unhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas.", :event => evento3, :user => diogo)
-c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo)
-c = Comment.create(:body => "A faca tinha um cabo metalico", :event => evento4, :user => diogo)
-c = Comment.create(:body => "A faca tinha era afiada", :event => evento4, :user => diogo)
+c = Comment.create(:body => "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um 
+                            corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas u
+                            nhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas.", :event => evento3, :user => diogo, :organization => diogo.organization, sensitivity: :publico, level: :local)
+c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :privado, level: :national)
+c = Comment.create(:body => "A faca tinha um cabo metalico", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :publico, level: :national)
+c = Comment.create(:body => "A faca tinha era afiada", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :publico, level: :local)
 
 
-c = Comment.create(:body => "A bomba era amarela", :event => evento5, :user => diogo)
+c = Comment.create(:body => "A bomba era amarela", :event => evento5, :user => diogo, :organization => diogo.organization, sensitivity: :publico, level: :international)
