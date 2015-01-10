@@ -1,6 +1,6 @@
 class SituationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_situation, only: [:show, :edit, :update, :destroy]
+  before_action :set_situation, only: [:show, :edit, :update]
   before_action :set_sensitivites, only: [:edit, :new, :create]
   after_action :verify_policy_scoped, :only => :index
   after_action :verify_authorized, :except => :index
@@ -46,12 +46,11 @@ class SituationsController < ApplicationController
     respond_with(@situation)
   end
 
-  def destroy
-    authorize @situation
-
-    @situation.destroy
-    respond_with(@situation)
-  end
+  # def destroy
+  #   authorize @situation
+  #   @situation.destroy
+  #   respond_with(@situation)
+  # end
 
   private
     def augmented_situation_params

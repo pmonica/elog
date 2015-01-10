@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :situation
+  belongs_to :organization, :foreign_key => :owner_organization
   has_many :comments
 
   validates_presence_of :user, :title, :situation, :sensitivity, :level

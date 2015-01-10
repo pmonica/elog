@@ -27,7 +27,8 @@
   <hr>
 
   <!-- Agora mostra os eventos -->
-  <% @situation.events.each do |event| %>
+  @eventos=policy_scope(@situation.events)
+  <% @events.each do |event| %>
 
     <% if event.sensitivity == "secreto" %>
         <div class="bs-callout bs-callout-danger" >

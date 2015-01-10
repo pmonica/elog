@@ -7,6 +7,7 @@ class CreateEvents < ActiveRecord::Migration
       t.integer :sensitivity
       t.integer :level
       t.boolean :decision, default: false
+      t.integer :owner_organization, index: true
 
       t.timestamps null: false
     end
