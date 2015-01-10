@@ -27,7 +27,7 @@
   <hr>
 
   <!-- Agora mostra os eventos -->
-  @eventos=policy_scope(@situation.events)
+  <% @events=policy_scope(@situation.events) %>
   <% @events.each do |event| %>
 
     <% if event.sensitivity == "secreto" %>

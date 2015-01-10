@@ -31,10 +31,13 @@ ActiveRecord::Schema.define(version: 20141226101359) do
     t.integer  "situation_id"
     t.integer  "sensitivity"
     t.integer  "level"
-    t.boolean  "decision",     default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "decision",           default: false
+    t.integer  "owner_organization"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
+
+  add_index "events", ["owner_organization"], name: "index_events_on_owner_organization"
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"

@@ -47,8 +47,8 @@ class EventsController < ApplicationController
   private
 
     def augmented_situation_params
-        # Ensure that the event is created with unfeigned correct user
-        new_params = event_params.merge( user: current_user)
+        # Ensure that the event is created with correct user and correct organization (no mistification)
+        new_params = event_params.merge(owner_organization: current_user.organization.id, user: current_user)
     end
 
     def set_sensitivites
