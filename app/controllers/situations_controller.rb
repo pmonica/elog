@@ -27,7 +27,6 @@ class SituationsController < ApplicationController
 
   def edit
     authorize @situation
-    @editar=true
   end
 
   def create
@@ -41,8 +40,14 @@ class SituationsController < ApplicationController
 
   def update
     authorize @situation
-
-    @situation.update(augmented_situation_params)
+    
+    if params[:_method]=="patch"    
+      @situation.active=false
+      @situation.save
+    else
+       @situation.update(augmented_situation_params)
+    end
+    
     respond_with(@situation)
   end
 
@@ -80,6 +85,7 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :_method, :organization_ids => [])
     end
+
 end
