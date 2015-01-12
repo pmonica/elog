@@ -4,14 +4,18 @@ class Comment < ActiveRecord::Base
 
   belongs_to :event
   belongs_to :user
+  belongs_to :organization, :foreign_key => :owner_organization
 
   validates_presence_of :event, :user, :body
-  after_create :set_default_levels, :if => :new_record?
 
-  private
 
-  def set_default_levels
-    self.sensitivity ||= self.event.sensitivity
-    self.level ||= self.event.level
-  end
+  # Are we not doing this (default setting) in the form?
+  # after_create :set_default_levels, :if => :new_record?
+
+  # private
+
+  # def set_default_levels
+  #   self.sensitivity ||= self.event.sensitivity
+  #   self.level ||= self.event.level
+  # end
 end

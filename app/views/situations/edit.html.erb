@@ -5,15 +5,36 @@
      <h3><i class="glyphicon glyphicon-dashboard"></i> Edit Situation</h3>
      <hr>
   </div>
-  <div class="row">
-    <div class="col-md-7">
-      <%= render 'form' %>
-    </div>
-    <hr>
 
-    <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
-    <%= link_to 'Show', @situation, :type => 'button', :class => 'btn btn-primary' %>
+
+  <div class="row">
+      <div class="col-md-7">
+        <%= render 'form' %>
+      </div>
+      <hr>
+
+      <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
+      <%= link_to 'Show', @situation, :type => 'button', :class => 'btn btn-primary' %>
 
   </div>
+   
+   <% if !current_user.admin? %>
+     <div class="col-md-12" >
+        <div class="col-md-3"> </div>
+        <div class="col-md-7">
+            <hr>
+            <div class="col-md-3">              
+              <%= link_to 'Terminate', situation_path, :type => 'button', :method => 'patch', :class => 'btn btn-primary' %>
+            </div>
+            <div class="col-md-1"> </div>
+            <div class="col-md-8" style="border-style: double; background-color: #b0c4de">
+              <h3> Warning </h3>
+              <p> Termination cannot be undone </p>
+            </div>
+        </div>
+     </div>
+    <%end%> 
+
 </div>
+
 

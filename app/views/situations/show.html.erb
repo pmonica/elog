@@ -23,11 +23,44 @@
     <!--<hr>-->
   </div>
 
-  <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
+  <div>
+     <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
+     <!-- Agora vou enfiar aqui o botão da modal -->
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+         New event
+     </button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+     
+
+  </div>
   <hr>
 
   <!-- Agora mostra os eventos -->
-  <% @situation.events.each do |event| %>
+  <% @events=policy_scope(@situation.events) %>
+  <% @events.each do |event| %>
 
     <% if event.sensitivity == "secreto" %>
         <div class="bs-callout bs-callout-danger" >
@@ -79,7 +112,9 @@
 
     <!-- Agora mostra os comments do evento -->
     <div id="comments_<%= event.id %>" style="display:none"; >
-       <% event.comments.each do |comment| %>
+
+       <% @comments=policy_scope(event.comments) %>
+       <% @comments.each do |comment| %>
          <div class="row">
            <!-- Indenta -->          
            <div class="col-md-1"> </div>

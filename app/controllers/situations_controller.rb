@@ -1,6 +1,6 @@
 class SituationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_situation, only: [:show, :edit, :update, :destroy]
+  before_action :set_situation, only: [:show, :edit, :update]
   before_action :set_sensitivites, only: [:edit, :new, :create]
   after_action :verify_policy_scoped, :only => :index
   after_action :verify_authorized, :except => :index
@@ -27,7 +27,7 @@ class SituationsController < ApplicationController
 
   def edit
     authorize @situation
-    @editar=true
+    @editar = true
   end
 
   def create
@@ -41,17 +41,22 @@ class SituationsController < ApplicationController
 
   def update
     authorize @situation
-
-    @situation.update(augmented_situation_params)
+   
+    if params.has_key?(:situation)
+       @situation.update(situation_params)
+    else  
+       @situation.active=false
+       @situation.save
+    end
+    
     respond_with(@situation)
   end
 
-  def destroy
-    authorize @situation
-
-    @situation.destroy
-    respond_with(@situation)
-  end
+  # def destroy
+  #   authorize @situation
+  #   @situation.destroy
+  #   respond_with(@situation)
+  # end
 
   private
     def augmented_situation_params
@@ -81,6 +86,7 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :_method, :organization_ids => [])
     end
+
 end

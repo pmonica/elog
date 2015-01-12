@@ -19,10 +19,13 @@ ActiveRecord::Schema.define(version: 20141226101359) do
     t.integer  "event_id"
     t.integer  "sensitivity"
     t.integer  "level"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "owner_organization"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
+  add_index "comments", ["event_id"], name: "index_comments_on_event_id"
+  add_index "comments", ["owner_organization"], name: "index_comments_on_owner_organization"
   add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "events", force: :cascade do |t|
@@ -31,10 +34,15 @@ ActiveRecord::Schema.define(version: 20141226101359) do
     t.integer  "situation_id"
     t.integer  "sensitivity"
     t.integer  "level"
-    t.boolean  "decision",     default: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.boolean  "decision",           default: false
+    t.integer  "owner_organization"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
+
+  add_index "events", ["owner_organization"], name: "index_events_on_owner_organization"
+  add_index "events", ["situation_id"], name: "index_events_on_situation_id"
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
