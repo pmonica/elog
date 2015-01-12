@@ -1,12 +1,12 @@
 class User < ActiveRecord::Base
   enum role: { p1: 0, p2: 1, p3: 2, admin: 4 }
-  enum clearance: { publico: 0, privado: 1, secreto: 2}
+  enum clearance: { Public: 0, Private: 1, Secret: 2}
 
   after_initialize :set_default_role_and_sensitivity
 
   def set_default_role_and_sensitivity
     self.role ||= :p1
-    self.clearance ||= :publico
+    self.clearance ||= :Public
   end
 
   # Include default devise modules. Others available are:

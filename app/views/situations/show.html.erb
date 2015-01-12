@@ -2,7 +2,17 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %></h3>
+    <h3><i class="glyphicon glyphicon-dashboard"></i> 
+      <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> 
+      <% if current_user.admin? %>
+        <% if (@situation.active) %>
+           <td><i class="glyphicon glyphicon-folder-open"></i></td>
+        <% else %> 
+           <td><i class="glyphicon glyphicon-folder-close"></i></td>
+        <% end %>
+      <% end %>  
+      <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
+    </h3>
      
     <hr>
     <p>
@@ -62,10 +72,10 @@
   <% @events=policy_scope(@situation.events) %>
   <% @events.each do |event| %>
 
-    <% if event.sensitivity == "secreto" %>
+    <% if event.sensitivity == "Secret" %>
         <div class="bs-callout bs-callout-danger" >
     <% else %>
-      <% if event.sensitivity == "privado" %>
+      <% if event.sensitivity == "Private" %>
         <div class="bs-callout bs-callout-warning" >
       <% else %>
         <div class="bs-callout bs-callout-success" >
@@ -75,10 +85,10 @@
        <div class="row">
 
           <!-- Creation time with symbol code for "Local/National/International" -->
-          <% if event.level == "international" %>
+          <% if event.level == "International" %>
               <div class="col-md-3"> <small>(<%= event.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
           <% else %>
-             <% if event.level == "national" %>
+             <% if event.level == "National" %>
                 <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
              <% else %>
                 <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
@@ -123,10 +133,10 @@
             <div class="col-md-11">
 
 
-              <% if comment.sensitivity == "secreto" %>
+              <% if comment.sensitivity == "Secret" %>
                   <div class="bs-callout bs-callout-info-d" >
               <% else %>
-                  <% if comment.sensitivity == "privado" %>
+                  <% if comment.sensitivity == "Private" %>
                      <div class="bs-callout bs-callout-info-w" >
                   <% else %>
                      <div class="bs-callout bs-callout-info-s" >
@@ -136,10 +146,10 @@
                   <div class="row">
 
                       <!-- Creation time with symbol code for "Local/National/International" -->
-                      <% if comment.level == "international" %>
+                      <% if comment.level == "International" %>
                           <div class="col-md-3"> <small>(<%= comment.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
                       <% else %>
-                         <% if comment.level == "national" %>
+                         <% if comment.level == "National" %>
                             <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
                          <% else %>
                             <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>

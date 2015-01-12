@@ -5,6 +5,6 @@ FactoryGirl.define do
 
     sequence(:title) { |n| "This is a new event with ID: #{n}" }
     level :local
-    sensitivity :secreto
+    sensitivity :Secret
   end
 end

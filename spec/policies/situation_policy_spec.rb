@@ -25,36 +25,36 @@ describe SituationPolicy do
     end
 
     it "lists situations with equal sensitivity than current user's clearance" do
-      situation.update_attributes(sensitivity: :publico)
+      situation.update_attributes(sensitivity: :Public)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
     it "lists situations with lower sensitivity than current user's clearance" do
-      situation.update_attributes(sensitivity: :privado)
-      user.update_attributes(clearance: :secreto)
+      situation.update_attributes(sensitivity: :Private)
+      user.update_attributes(clearance: :Secret)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
     it "when admin it list situations when organization doesn't participate in them" do
-      situation.update_attributes(sensitivity: :publico, organizations: [])
-      user.update_attributes(clearance: :secreto)
+      situation.update_attributes(sensitivity: :Public, organizations: [])
+      user.update_attributes(clearance: :Secret)
       user.update_attributes(role: :admin)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
       it "does not list situations when organization doesn't participate in them" do
-      situation.update_attributes(sensitivity: :publico, organizations: [])
-      user.update_attributes(clearance: :secreto)
+      situation.update_attributes(sensitivity: :Public, organizations: [])
+      user.update_attributes(clearance: :Secret)
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
 
     it "lists situations when level is national and organization is in the same country" do
       new_org = FactoryGirl.create(:organization, country: situation.organization.country)
-      situation.update_attributes(level: :national, sensitivity: :publico, organization: new_org,
+      situation.update_attributes(level: :National, sensitivity: :Public, organization: new_org,
         organizations: [new_org, user.organization])
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
@@ -62,54 +62,54 @@ describe SituationPolicy do
 
     it "does not list situations when level is national and organization is different country" do
       new_org = FactoryGirl.create(:organization, country: 'Other Country')
-      situation.update_attributes(level: :national, sensitivity: :publico, organization: new_org,
+      situation.update_attributes(level: :National, sensitivity: :Public, organization: new_org,
         organizations: [new_org, user.organization])
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
 
     it "lists situations when level is local and organization is owner" do
-      situation.update_attributes(level: :local, sensitivity: :publico)
+      situation.update_attributes(level: :Local, sensitivity: :Public)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
     it "does not list situations when level is local and organization is not the owner" do
       new_org = FactoryGirl.create(:organization, country: situation.organization.country)
-      situation.update_attributes(level: :local, sensitivity: :publico, organization: new_org,
+      situation.update_attributes(level: :Local, sensitivity: :Public, organization: new_org,
         organizations: [new_org, user.organization])
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
 
     it "lists situations when level international" do
-      situation.update_attributes(level: :international, sensitivity: :publico)
+      situation.update_attributes(level: :International, sensitivity: :Public)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
     it "does not list situations when level international but sensitivity is secret" do
-      situation.update_attributes(level: :international, sensitivity: :secreto)
+      situation.update_attributes(level: :International, sensitivity: :Secret)
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
 
     it "does not list situations when active is false" do
-      situation.update_attributes(active: false, sensitivity: :publico)
+      situation.update_attributes(active: false, sensitivity: :Public)
       expect(policy_scope).to eq []
       expect(subject).not_to permit(user, situation)
     end
 
     it "when admin it lists situations when active is false" do
-      situation.update_attributes(active: false, sensitivity: :publico)
+      situation.update_attributes(active: false, sensitivity: :Public)
       user.update_attributes(role: :admin)
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
     end
 
     it "allows user with private to access public situation" do
-      situation.update_attributes(sensitivity: :publico)
-      user.update_attributes(clearance: :privado)
+      situation.update_attributes(sensitivity: :Public)
+      user.update_attributes(clearance: :Private)
 
       expect(policy_scope).to eq [situation]
       expect(subject).to permit(user, situation)
@@ -139,7 +139,7 @@ describe SituationPolicy do
     end
 
     it "updates a new situation when user is p3 and owner" do
-      situation.update_attributes(sensitivity: :publico)
+      situation.update_attributes(sensitivity: :Public)
       user.update_attributes(role: :p3)
       expect(subject).to permit(user, situation)
     end

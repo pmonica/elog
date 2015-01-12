@@ -13,8 +13,8 @@ class SituationPolicy < ApplicationPolicy
             ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) AND (level = :national_level)) OR
             (level = :international_level))",
           {organization_id: user.organization.id, user_country: user.organization.country,
-            user_clearance: user_clearance, local_level: levels[:local],
-            national_level: levels[:national], international_level: levels[:international]})
+            user_clearance: user_clearance, local_level: levels[:Local],
+            national_level: levels[:National], international_level: levels[:International]})
       end
     end
   end
@@ -26,9 +26,9 @@ class SituationPolicy < ApplicationPolicy
     situation_sensitivity = Situation.sensitivities[record.sensitivity]
 
     record.active? && record.organizations.include?(user.organization) && situation_sensitivity <= user_clearance &&
-      ((record.owner_organization == user.organization && record.local?) ||
-       (record.owner_organization.country == user.organization.country && record.national?) ||
-       (record.international?))
+      ((record.owner_organization == user.organization && record.Local?) ||
+       (record.owner_organization.country == user.organization.country && record.National?) ||
+       (record.International?))
   end
 
   def create?

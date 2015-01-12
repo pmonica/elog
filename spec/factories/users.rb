@@ -6,7 +6,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "test#{n}@example.com" }
     password "please123"
     role :p1
-    clearance :publico
+    clearance :Public
 
     trait :admin do
       role 'admin'

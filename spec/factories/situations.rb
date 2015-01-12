@@ -4,7 +4,7 @@ FactoryGirl.define do
     association :organization, factory: :organization
 
     sequence(:name) { |n| "This is a new situation with ID: #{n}" }
-    level :local
-    sensitivity :secreto
+    level :Local
+    sensitivity :Secret
   end
 end

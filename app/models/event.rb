@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
-  enum sensitivity: { publico: 0, privado: 1, secreto: 2}
-  enum level: { local: 0, national: 1, international: 2}
+  enum sensitivity: { Public: 0, Private: 1, Secret: 2}
+  enum level: { Local: 0, National: 1, International: 2}
 
   belongs_to :user
   belongs_to :situation

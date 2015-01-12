@@ -5,7 +5,7 @@ feature 'User views situation' do
   let!(:user) { situation.user }
 
   before(:each) do
-    user.update_attributes(organization: situation.organization, role: :p3, clearance: :secreto)
+    user.update_attributes(organization: situation.organization, role: :p3, clearance: :Secret)
     situation.update_attributes(organizations: [situation.organization])
     signin(user.email, user.password)
   end
