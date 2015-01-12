@@ -18,20 +18,22 @@
 
   </div>
    
-   <div class="col-md-12" >
-      <div class="col-md-3"> </div>
-      <div class="col-md-7">
-          <hr>
-          <div class="col-md-3">              
-            <%= link_to 'Terminate', situation_path, :type => 'button', method: :patch, :class => 'btn btn-primary' %>
-          </div>
-          <div class="col-md-1"> </div>
-          <div class="col-md-8" style="border-style: double; background-color: #b0c4de">
-            <h3> Warning </h3>
-            <p> Termination cannot be undone </p>
-          </div>
-      </div>
-   </div> 
+   <% if !current_user.admin? %>
+     <div class="col-md-12" >
+        <div class="col-md-3"> </div>
+        <div class="col-md-7">
+            <hr>
+            <div class="col-md-3">              
+              <%= link_to 'Terminate', situation_path, :type => 'button', :method => 'patch', :class => 'btn btn-primary' %>
+            </div>
+            <div class="col-md-1"> </div>
+            <div class="col-md-8" style="border-style: double; background-color: #b0c4de">
+              <h3> Warning </h3>
+              <p> Termination cannot be undone </p>
+            </div>
+        </div>
+     </div>
+    <%end%> 
 
 </div>
 

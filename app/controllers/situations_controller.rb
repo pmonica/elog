@@ -27,6 +27,7 @@ class SituationsController < ApplicationController
 
   def edit
     authorize @situation
+    @editar = true
   end
 
   def create
@@ -40,12 +41,12 @@ class SituationsController < ApplicationController
 
   def update
     authorize @situation
-    
-    if params[:_method]=="patch"    
-      @situation.active=false
-      @situation.save
-    else
-       @situation.update(augmented_situation_params)
+   
+    if params.has_key?(:situation)
+       @situation.update(situation_params)
+    else  
+       @situation.active=false
+       @situation.save
     end
     
     respond_with(@situation)
