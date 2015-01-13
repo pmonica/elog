@@ -1,11 +1,11 @@
 class User < ActiveRecord::Base
-  enum role: { p1: 0, p2: 1, p3: 2, admin: 4 }
+  enum role: { p0: 0, p1: 1, p2: 2, p3: 3, p4: 4, admin: 5 }
   enum clearance: { Public: 0, Private: 1, Secret: 2}
 
   after_initialize :set_default_role_and_sensitivity
 
   def set_default_role_and_sensitivity
-    self.role ||= :p1
+    self.role ||= :p0
     self.clearance ||= :Public
   end
 
@@ -17,5 +17,5 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :situations
   belongs_to :organization
-  validates_presence_of :organization, :unless => Proc.new { |u| u.admin? }
+  validates_presence_of :organization
 end

@@ -26,7 +26,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.p3? || user.p2?
+    user.admin? || user.p4? || user.p3? || user.p2?
   end
 
   def update?

@@ -64,10 +64,21 @@ adilson = User.find_or_create_by!(email: 'adilson@example.com') do |user|
   user.confirm!
 end
 
+ladmin = User.find_or_create_by!(email: 'ladmin@example.com') do |user|
+  user.name = "Local Admin"
+  user.organization = comar
+  user.clearance = :Secret
+  user.role = :p4
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
+
+
 # Criar situacoes de exemplo
-primeira = Situation.create(:user => adilson, :organization => adilson.organization, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil", :level => :local, :sensitivity => :Public)
-segunda = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :national, :sensitivity => :Public)
-terceira = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :national, :sensitivity => :Private)
+primeira = Situation.create(:user => adilson, :organization => adilson.organization, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil", :level => :Local, :sensitivity => :Public)
+segunda = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :National, :sensitivity => :Public)
+terceira = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :National, :sensitivity => :Private)
 quarta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Terrorismo no guincho", :level => :International, :sensitivity => :Secret)
 quinta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Empanado", :level => :International, :sensitivity => :Private)
 sexta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Afundado", :level => :National, :sensitivity => :Secret)

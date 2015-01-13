@@ -7,14 +7,33 @@ class SituationPolicy < ApplicationPolicy
         # Vai buscar o valor numerico da clerance do utilizador para usar no Query
         user_clearance = User.clearances[user.clearance]
         levels = Situation.levels
-        scope.active.joins(:organizations)
-          .where("participations.organization_id = :organization_id AND sensitivity <= :user_clearance
-          AND (((owner_organization = :organization_id) AND (level = :local_level)) OR
-            ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) AND (level = :national_level)) OR
-            (level = :international_level))",
-          {organization_id: user.organization.id, user_country: user.organization.country,
-            user_clearance: user_clearance, local_level: levels[:Local],
-            national_level: levels[:National], international_level: levels[:International]})
+
+        # If user is a P4, show inactive situations
+        if user.role=='p4'
+            scope.joins(:organizations)
+              .where("participations.organization_id = :organization_id AND sensitivity <= :user_clearance
+              AND (((owner_organization = :organization_id) AND (level = :local_level)) OR
+                ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) AND (level = :national_level)) OR
+                (level = :international_level))",
+              {organization_id: user.organization.id, user_country: user.organization.country,
+                user_clearance: user_clearance, local_level: levels[:Local],
+                national_level: levels[:National], international_level: levels[:International]})
+        else
+          if user.role!='p0'
+            # Users P1 to P3 will only see active Situations
+            scope.active.joins(:organizations)
+              .where("participations.organization_id = :organization_id AND sensitivity <= :user_clearance
+              AND (((owner_organization = :organization_id) AND (level = :local_level)) OR
+                ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) AND (level = :national_level)) OR
+                (level = :international_level))",
+              {organization_id: user.organization.id, user_country: user.organization.country,
+                user_clearance: user_clearance, local_level: levels[:Local],
+                national_level: levels[:National], international_level: levels[:International]})
+          else
+            # P0'S do not see anything
+            []
+          end
+        end
       end
     end
   end
@@ -32,13 +51,13 @@ class SituationPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.p3?
+    user.admin? || user.p3? || user.p4?
   end
 
   def update?
     return true if user.admin?
 
-    show? && user.p3? && record.owner_organization == user.organization
+    show? && (user.p3? || user.p4?) && record.owner_organization == user.organization
   end
 
   def destroy?

@@ -1,16 +1,20 @@
 class OrganizationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if user.admin? || user.p3?
-        scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})
+      if defined?(user)=="method" # will now return true or false
+            scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})        
       else
-        scope.where(id: user.organization.id)
+         if user.admin? || user.p3? || user.p4?
+            scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})
+          else
+            scope.where(id: user.organization.id)
+          end 
       end
     end
   end
 
   def show?
-    user.admin? || user.p3? || record == user.organization
+    user.admin? || user.p3? || user.p4? || record == user.organization
   end
 
   def create?
