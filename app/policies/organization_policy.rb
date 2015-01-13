@@ -18,7 +18,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin?
+    user.admin? || user.p4?
   end
 
   alias_method :update?, :create?
