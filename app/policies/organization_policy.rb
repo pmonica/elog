@@ -1,7 +1,7 @@
 class OrganizationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if defined?(user)=="method" # will now return true or false
+      if defined?(user.id)==nil # will now return true or false
             scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})        
       else
          if user.admin? || user.p3? || user.p4?
@@ -21,8 +21,11 @@ class OrganizationPolicy < ApplicationPolicy
     user.admin? || user.p4?
   end
 
+  def destroy?
+    user.admin?
+  end
+
   alias_method :update?, :create?
-  alias_method :destroy?, :create?
   alias_method :new?, :create?
   alias_method :edit?, :create?
 end

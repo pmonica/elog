@@ -4,7 +4,7 @@ FactoryGirl.define do
     association :user, factory: :user
 
     sequence(:title) { |n| "This is a new event with ID: #{n}" }
-    level :local
+    level :Local
     sensitivity :Secret
   end
 end

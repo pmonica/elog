@@ -27,6 +27,7 @@ class OrganizationsController < ApplicationController
     authorize Organization
 
     @organization = Organization.new
+
     respond_with(@organization)
   end
 
@@ -38,7 +39,15 @@ class OrganizationsController < ApplicationController
     authorize Organization
 
     @organization = Organization.new(organization_params)
-    flash[:notice] = 'Organization was successfully created.' if @organization.save
+
+    if @organization.save
+      flash[:notice] = 'Organization was successfully created.'
+      flash[:notice] = "User default_"+"#{@organization.name}".gsub!(/\W/, "")+"_#{@organization.country}@example.com created."
+
+      @newautouser = User.create(:name => "Default_#{@organization.name}_#{@organization.country}".gsub!(/\W/, ""), email: "default_#{@organization.name}_#{@organization.country}".gsub!(/\W/, "")+"@example.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => 'change', :password_confirmation => 'change')
+      @newautouser.confirm!
+    
+    end
     respond_with(@organization)
   end
 
