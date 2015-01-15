@@ -35,7 +35,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.admin? || (user.p4? && (record.creator_org==user.organization.name) && (record.creator_country==user.organization.country)) || (user.p4? && record== user.organization)
+    user.admin? || (user.p4? && (record.creator_org==user.organization.name) && (record.creator_country==user.organization.country))
   end
 
   alias_method :update?, :edit?

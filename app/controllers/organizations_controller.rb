@@ -60,9 +60,21 @@ class OrganizationsController < ApplicationController
     if params.has_key?(:organization)
        # @organization.update(organization_params)
        flash[:notice] = 'Organization was successfully updated.' if @organization.update(organization_params)
-    else  
-       @organization.active=false
-       @organization.save
+    
+       # If organization deactivated, change mails, passwords and roles to all users of the deactivated organization
+       if !@organization.active
+           users_to_kill=User.where(organization: @organization)
+           users_to_kill.map do |u|
+              pass=('a'..'z').to_a.shuffle[0,20].join
+              salt=('a'..'z').to_a.shuffle[0,20].join
+              u.email=salt+u.email
+              u.role=0
+              u.password=pass
+              u.password_confirmation=pass
+              u.confirm!
+           end
+       end
+
     end
 
    respond_with(@organization)

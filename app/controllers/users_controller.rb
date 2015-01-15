@@ -25,7 +25,16 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     authorize @user
-    @user.destroy
+
+    # Change mails, passwords and role of the user
+    pass=('a'..'z').to_a.shuffle[0,20].join
+    salt=('a'..'z').to_a.shuffle[0,20].join
+    @user.email=salt+@user.email
+    @user.role=0
+    @user.password=pass
+    @user.password_confirmation=pass
+    @user.confirm!
+
     redirect_to users_path, :notice => "User deleted."
   end
 
