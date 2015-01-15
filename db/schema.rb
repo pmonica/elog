@@ -47,8 +47,11 @@ ActiveRecord::Schema.define(version: 20141226101359) do
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
     t.string   "country"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "active",          default: true
+    t.string   "creator_org"
+    t.string   "creator_country"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "participations", force: :cascade do |t|

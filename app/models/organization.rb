@@ -6,4 +6,8 @@ class Organization < ActiveRecord::Base
   validates_presence_of :name
   validates_presence_of :country
   validates_uniqueness_of :name, :scope => [:country]
+
+  def self.active
+    where(active: true)
+  end
 end

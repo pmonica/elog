@@ -43,11 +43,18 @@ class SituationPolicy < ApplicationPolicy
 
     user_clearance = User.clearances[user.clearance]
     situation_sensitivity = Situation.sensitivities[record.sensitivity]
-
-    record.active? && record.organizations.include?(user.organization) && situation_sensitivity <= user_clearance &&
-      ((record.owner_organization == user.organization && record.Local?) ||
+    if user.p4?
+       record.organizations.include?(user.organization) && situation_sensitivity <= user_clearance &&
+       ((record.owner_organization == user.organization && record.Local?) ||
        (record.owner_organization.country == user.organization.country && record.National?) ||
        (record.International?))
+
+    else
+       record.active? && record.organizations.include?(user.organization) && situation_sensitivity <= user_clearance &&
+       ((record.owner_organization == user.organization && record.Local?) ||
+       (record.owner_organization.country == user.organization.country && record.National?) ||
+       (record.International?))
+    end
   end
 
   def create?

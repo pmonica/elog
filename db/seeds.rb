@@ -1,4 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
+ # This file should contain all the record creation needed to seed the database with its default values.
 
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -9,14 +9,14 @@
 
 
 # Criar organizacoes de exemplo
-mrcc = Organization.create(:name => "MRCC", :country => "Portugal")
-comar = Organization.create(:name => "COMAR", :country => "Portugal")
-mrccn = Organization.create(:name => "MRCC", :country => "Nigeria")
-inem = Organization.create(:name => "INEM", :country => "Brazil")
-orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal")
+mrcc = Organization.create(:name => "MRCC", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
+comar = Organization.create(:name => "COMAR", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
+mrccn = Organization.create(:name => "MRCC", :country => "Nigeria", :creator_org =>"ADMIN", :creator_country => "Portugal")
+inem = Organization.create(:name => "INEM", :country => "Brazil", :creator_org =>"ADMIN", :creator_country => "Portugal")
+orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
 
 # Criar administrador
-user = CreateAdminService.new.call
+  user = CreateAdminService.new.call
   user.name = "Admin"
   user.organization = orgadmin
   user.clearance = :Secret

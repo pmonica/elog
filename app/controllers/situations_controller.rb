@@ -14,7 +14,6 @@ class SituationsController < ApplicationController
 
   def show
     authorize @situation
-
     respond_with(@situation)
   end
 

@@ -4,7 +4,7 @@
   <div class="col-sm-9">
     <h3><i class="glyphicon glyphicon-dashboard"></i> 
       <%= @situation.name + ' (' + @situation.sensitivity + ', ' + @situation.level + ')' %> 
-      <% if current_user.admin? %>
+      <% if (current_user.admin? || current_user.p4?) %>
         <% if (@situation.active) %>
            <td><i class="glyphicon glyphicon-folder-open"></i></td>
         <% else %> 
@@ -23,7 +23,7 @@
     <hr>
       <table class="table table-striped">
         <tbody>
-          <% @situation.organizations.each do |o| %>
+          <% policy_scope(@situation.organizations).each do |o| %>
             <tr>
               <td><%= link_to o.name+' - '+o.country, o %></td>
             </tr>

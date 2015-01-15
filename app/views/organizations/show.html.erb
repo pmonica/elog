@@ -2,7 +2,15 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-     <h3><i class="glyphicon glyphicon-dashboard"></i> Organization Detail <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %></h3>
+     <h3><i class="glyphicon glyphicon-dashboard"></i> Organization Detail 
+     <% if (current_user.admin? || current_user.p4?) %>
+         <% if @organization.active %>     
+            <td><i class="glyphicon glyphicon-folder-open"></i></td>     
+         <% else %>
+             <td><i class="glyphicon glyphicon-folder-close"></i></td>
+          <% end %> <!-- if organization.active -->   
+     <% end %> <!-- if admin or p4 -->
+     <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %></h3>
      <hr>
       <p>
       <strong>Name:</strong>

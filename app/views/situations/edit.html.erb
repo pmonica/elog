@@ -18,7 +18,7 @@
 
   </div>
    
-   <% if !current_user.admin? %>
+   <% if !current_user.admin? && !current_user.p4?%>
      <div class="col-md-12" >
         <div class="col-md-3"> </div>
         <div class="col-md-7">
@@ -29,7 +29,7 @@
             <div class="col-md-1"> </div>
             <div class="col-md-8" style="border-style: double; background-color: #b0c4de">
               <h3> Warning </h3>
-              <p> Termination cannot be undone </p>
+              <p> Reactivation can only be done by user roles above P3 </p>
             </div>
         </div>
      </div>

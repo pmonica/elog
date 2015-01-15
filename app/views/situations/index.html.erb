@@ -2,7 +2,7 @@
   <%= render 'layouts/left_navigation' %>
 
   <div class="col-sm-9">
-    <h3><i class="glyphicon glyphicon-dashboard"></i> Situation</h3>
+    <h3><i class="glyphicon glyphicon-dashboard"></i> Situations</h3>
     <hr>
     <table class="table table-striped">
       <thead>
@@ -15,7 +15,7 @@
             <td><%= situation.sensitivity %></td>
             <td><%= situation.level %></td>
             <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
-            <% if current_user.admin? %>
+            <% if (current_user.admin? || current_user.p4?)%>
                 <% if (situation.active) %>
                    <td><i class="glyphicon glyphicon-folder-open"></i></td>
                 <% else %> 
