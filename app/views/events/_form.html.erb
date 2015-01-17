@@ -1,15 +1,15 @@
-<%= simple_form_for(@event) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for [@situation, @event] do |f| %>
 
-  <div class="form-inputs">
-    <%= f.input :user_id %>
-    <%= f.input :title %>
-    <%= f.input :situation_id %>
-    <%= f.input :sensitivity %>
-    <%= f.input :level %>
-  </div>
+      <div class="form-inputs">
+        <%= f.input :title %>
+        <%= f.input :sensitivity, collection: @sensitivities.keys %>
+        <%= f.input :level, collection: Event.levels.keys %>
+        <%= f.input :decision, default: false, as: :radio_buttons %>
+      </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
+
+      <div class="form-actions"> 
+          <%= f.button :submit , controller: situation_events_path(@situation) %>  
+      </div>
+
 <% end %>

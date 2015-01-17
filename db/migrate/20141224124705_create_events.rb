@@ -3,7 +3,7 @@ class CreateEvents < ActiveRecord::Migration
     create_table :events do |t|
       t.integer :user_id, index: true
       t.text :title
-      t.integer :situation_id, index: true
+      t.belongs_to :situation, index: true
       t.integer :sensitivity
       t.integer :level
       t.boolean :decision, default: false
