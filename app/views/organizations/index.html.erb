@@ -14,9 +14,15 @@
             <td><%= link_to organization.name, organization %></td>
             <td><%= organization.country %></td>
             <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-            <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% if (current_user.admin? || current_user.p4?) %>
+               <% if organization.active %>     
+                  <td><i class="glyphicon glyphicon-folder-open"></i></td>     
+               <% else %>
+                   <td><i class="glyphicon glyphicon-folder-close"></i></td>
+                <% end %> <!-- if organization.active -->   
+            <% end %> <!-- if admin or p4 -->
           </tr>
-        <% end %>
+        <% end %> <!-- end do --> 
       </tbody>
     </table>
   </div>

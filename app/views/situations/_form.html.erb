@@ -7,17 +7,17 @@
     <%= f.input :sensitivity, collection: @sensitivities.keys %>
     <%= f.input :level, collection: Situation.levels.keys %>
 
-    <%= f.association :organizations, collection: policy_scope(Organization), :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
+    <%= f.association :organizations, collection: policy_scope(Organization.active), :label_method => lambda { |org| "#{org.name} - #{org.country}"}, as: :check_boxes%>
 
-     <!-- If this is an edit operation done by the admin, offer the possibility of activating/deactivating the Situation -->
-     <% if (@editar && current_user.admin?) %>
+     <!-- If this is an edit operation done by the admin or P4, offer the possibility of activating/deactivating the Situation -->
+     <% if (@editar && (current_user.admin?||current_user.p4?)) %>
 	       <div class="row" style="border-style: double; background-color: #b0c4de">
 	          <div class="col-md-2" style="background-color: #b0c4de">
 	            <%= f.input :active, as: :radio_buttons %>
 	          </div>
 	          <div class="col-md-5" style="background-color: #b0c4de">
 	            <h3> Warning </h3>
-	            <p> Deactivation cannot be undone </p>
+	            <p> Reactivation can only be done by user roles above P3 </p>
 	          </div>
 	       </div>
 	      <% end %>

@@ -15,8 +15,8 @@ class CommentPolicy < ApplicationPolicy
               AND (level = :national_level))  OR 
               (level = :international_level) )",
               {organization_id: user.organization.id, user_clearance: user_clearance, 
-                user_country: user.organization.country, local_level: levels[:local],
-                national_level: levels[:national], international_level: levels[:international]})
+                user_country: user.organization.country, local_level: levels[:Local],
+                national_level: levels[:National], international_level: levels[:International]})
       end
     end
   end
@@ -26,7 +26,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def create?
-    user.admin? || user.p3? || user.p2?
+    user.admin? || user.p4? || user.p3? || user.p2?
   end
 
   def update?

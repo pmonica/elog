@@ -15,7 +15,7 @@
       <%= f.input :password_confirmation, :required => true %>
     </div>
     <div class="form-group">
-      <%= f.input :organization_id, collection: Organization.all, :required => true, error_html: { class: 'has-error'} %>
+      <%= f.input :organization_id, collection: policy_scope(Organization), :label_method => lambda { |org| "#{org.name} - #{org.country}"}, :required => true, error_html: { class: 'has-error'} %>
     </div>
     <%= f.submit 'Sign up', :class => 'button right' %>
   <% end %>

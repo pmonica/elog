@@ -27,34 +27,69 @@ class OrganizationsController < ApplicationController
     authorize Organization
 
     @organization = Organization.new
+
     respond_with(@organization)
   end
 
   def edit
     authorize @organization
+    @editar = true
   end
 
   def create
     authorize Organization
 
-    @organization = Organization.new(organization_params)
-    flash[:notice] = 'Organization was successfully created.' if @organization.save
+
+    @organization = Organization.new(augmented_organization_params)
+
+    if @organization.save
+      flash[:notice] = 'Organization was successfully created.'
+      flash[:notice] = "User default_"+" #{@organization.name}".gsub!(/\s/, "")+"_#{@organization.country}@example.com created."
+
+      @newautouser = User.create(:name => " Default_#{@organization.name}_#{@organization.country}".gsub!(/\s/, ""), email: " default_#{@organization.name}_#{@organization.country}".gsub!(/\s/, "")+"@example.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => 'change', :password_confirmation => 'change')
+      @newautouser.confirm!
+    
+    end
     respond_with(@organization)
   end
 
   def update
+
     authorize @organization
 
-    flash[:notice] = 'Organization was successfully updated.' if @organization.update(organization_params)
-    respond_with(@organization)
+    if params.has_key?(:organization)
+       # @organization.update(organization_params)
+       flash[:notice] = 'Organization was successfully updated.' if @organization.update(organization_params)
+    
+       # If organization deactivated, change mails, passwords and roles to all users of the deactivated organization
+       if !@organization.active
+           users_to_kill=User.where(organization: @organization)
+           users_to_kill.map do |u|
+              pass=('a'..'z').to_a.shuffle[0,20].join
+              salt=('a'..'z').to_a.shuffle[0,20].join
+              u.email=salt+u.email
+              u.role=0
+              u.password=pass
+              u.password_confirmation=pass
+              u.confirm!
+           end
+       end
+
+    end
+
+   respond_with(@organization)
   end
 
-  def destroy
-    authorize @organization
-
-    @organization.destroy
-    respond_with(@organization)
-  end
+  # def destroy
+  #   authorize @organization
+  #   if @organization.active 
+  #      @organization.active=false 
+  #   else
+  #     @organization.active=true 
+  #   end  
+  #   @organization.save
+  #   redirect_to organizations_path
+  # end
 
   private
     def set_organization
@@ -62,6 +97,12 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.require(:organization).permit(:name, :country)
+      params.require(:organization).permit(:name, :country, :active)
     end
+
+    def augmented_organization_params
+        # Ensure that organization is created with the right creator organization and country (of the user that created it).
+        new_params = organization_params.merge(creator_org: current_user.organization.name, creator_country: current_user.organization.country)
+    end
+
 end
