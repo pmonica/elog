@@ -1,7 +1,10 @@
   <%= simple_form_for [@situation, @event] do |f| %>
 
+      <% @event.sensitivity=@situation.sensitivity %>
+      <% @event.level=@situation.level %>
+
       <div class="form-inputs">
-        <%= f.input :title %>
+        <%= f.input :title, label: 'Event description' %>
         <%= f.input :sensitivity, collection: @sensitivities.keys %>
         <%= f.input :level, collection: Event.levels.keys %>
         <%= f.input :decision, default: false, as: :radio_buttons %>
@@ -9,7 +12,8 @@
 
 
       <div class="form-actions"> 
-          <%= f.button :submit , controller: situation_events_path(@situation) %>  
+          <%= f.button :submit , controller: situation_events_path(@situation), class: 'btn btn-primary' %>  
       </div>
 
+<!-- collection: @sensitivities.keys #{@sensitivities.keys.last} --> 
 <% end %>

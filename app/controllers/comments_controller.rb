@@ -51,8 +51,8 @@ class CommentsController < ApplicationController
     end
 
     def set_sensitivites
-      sensitivitiy_hash =  Comment.sensitivities
-      @sensitivities = sensitivitiy_hash.select { |s| sensitivitiy_hash[s] <= sensitivitiy_hash[current_user.clearance] }
+      sensitivity_hash =  Comment.sensitivities
+      @sensitivities = sensitivity_hash.select { |s| sensitivity_hash[s] <= sensitivity_hash[current_user.clearance] }
     end
 
     def comment_params
