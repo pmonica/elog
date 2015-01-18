@@ -12,12 +12,14 @@
 	          <div class="col-md-2" style="background-color: #b0c4de">
 	            <%= f.input :active, as: :radio_buttons %>
 	          </div>
-	          <div class="col-md-5" style="background-color: #b0c4de">
+	          <div class="col-md-8" style="background-color: #b0c4de">
 	            <h3> Warning </h3>
-	            <p> Reactivation can only be done by user roles above P3</p>
+	            <p> Reactivation can only be done by user roles above P3, and all users belonging to the organization will be lost</p>
 	          </div>
 	       </div>
 	  <% end %>
+
+      <hr>
 
   <div class="form-actions">
     <%= f.button :submit %>

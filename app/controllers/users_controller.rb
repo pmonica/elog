@@ -29,19 +29,20 @@ class UsersController < ApplicationController
     # Change mails, passwords and role of the user
     pass=('a'..'z').to_a.shuffle[0,20].join
     salt=('a'..'z').to_a.shuffle[0,20].join
-    @user.email=salt+@user.email
+    @user.email=salt+"user_"+@user.email+"_deactivated"
     @user.role=0
     @user.password=pass
     @user.password_confirmation=pass
     @user.confirm!
+    @user.save!
 
-    redirect_to users_path, :notice => "User deleted."
+    redirect_to users_path, :notice => "User deactivated."
   end
 
   private
 
   def secure_params
-    params.require(:user).permit(:role, :organization_id)
+    params.require(:user).permit(:role, :organization_id, :clearance)
   end
 
 end
