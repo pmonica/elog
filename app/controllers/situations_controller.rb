@@ -43,12 +43,13 @@ class SituationsController < ApplicationController
    
     if params.has_key?(:situation)
        @situation.update(situation_params)
+       respond_with(@situation)
     else  
        @situation.active=false
        @situation.save
+       redirect_to situations_path
     end
     
-    respond_with(@situation)
   end
 
   # def destroy
@@ -76,8 +77,8 @@ class SituationsController < ApplicationController
     end
 
     def set_sensitivites
-      sensitivitiy_hash = Situation.sensitivities
-      @sensitivities = sensitivitiy_hash.select { |s| sensitivitiy_hash[s] <= sensitivitiy_hash[current_user.clearance] }
+      sensitivity_hash = Situation.sensitivities
+      @sensitivities = sensitivity_hash.select { |s| sensitivity_hash[s] <= sensitivity_hash[current_user.clearance] }
     end
 
     def set_situation

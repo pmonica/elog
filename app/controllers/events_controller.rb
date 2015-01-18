@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_sensitivites, only: [:create]
+  before_action :set_sensitivities, only: [:create, :new]
   after_action :verify_authorized
   
   respond_to :html
@@ -14,12 +14,12 @@ class EventsController < ApplicationController
   #   respond_with(@event)
   # end
 
-  # Temos o Create
-  # def new
-  #   authorize Event
-  #   @event = Event.new
-  #   respond_with(@event)
-  # end
+  def new
+    authorize Event
+    @event = Event.new
+    @situation = Situation.find(params[:situation_id])
+    respond_with(@situation, @event)
+  end
 
   # Não há alterações de eventos. se há mudanças a fazer, cria-se um novo evento, ou um comantário ao evento.
   # def edit
@@ -27,9 +27,12 @@ class EventsController < ApplicationController
 
   def create
     authorize Event
+    @situation = Situation.find(params[:situation_id])
+
     @event = Event.new(augmented_event_params)
     @event.save
-    respond_with(@event)
+
+    redirect_to situation_path(@situation)
   end
 
   # Não há alterações de eventos. se há mudanças a fazer, cria-se um novo evento, ou um comantário ao evento.
@@ -48,12 +51,12 @@ class EventsController < ApplicationController
 
     def augmented_event_params
         # Ensure that the event is created with correct user and correct organization (no mistification)
-        new_params = event_params.merge(owner_organization: current_user.organization.id, user: current_user)
+        new_params = event_params.merge(situation: @situation, owner_organization: current_user.organization.id, user: current_user)
     end
 
-    def set_sensitivites
-      sensitivitiy_hash = Event.sensitivities
-      @sensitivities = sensitivitiy_hash.select { |s| sensitivitiy_hash[s] <= sensitivitiy_hash[current_user.clearance] }
+    def set_sensitivities
+      sensitivity_hash = Event.sensitivities
+      @sensitivities = sensitivity_hash.select { |s| sensitivity_hash[s] <= sensitivity_hash[current_user.clearance] }
     end
 
 
@@ -62,6 +65,6 @@ class EventsController < ApplicationController
     # end
 
     def event_params
-      params.require(:event).permit(:title, :sensitivity, :level)
+      params.require(:event).permit(:title, :sensitivity, :level, :decision)
     end
 end

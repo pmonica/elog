@@ -4,10 +4,13 @@
   <div class="col-sm-9">
     <h3><i class="glyphicon glyphicon-dashboard"></i> New Situation</h3>
     <hr>
-    <%= render 'form' %>
-    <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <%= render 'form' %>
+    </div>
     <hr>
+    <%= link_to 'Back', situations_path, :type => 'button', :class => 'btn btn-primary' %>
 
   </div>
 </div>
-

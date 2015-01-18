@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
   end
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :rememberable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :trackable, :validatable
 
   has_many :events
   has_many :situations

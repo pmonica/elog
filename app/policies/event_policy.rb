@@ -2,7 +2,7 @@ class EventPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.all
+        scope.all.order(created_at: :desc)
       else
 
         # Vai buscar o valor numerico da clerance do utilizador para usar no Query

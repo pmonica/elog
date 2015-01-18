@@ -6,7 +6,9 @@
         <tbody>
           <% @users.each do |user| %>
             <tr>
-              <%= render user %>
+              <% if !((user.email.include? "user_") && (user.email.include? "_deactivated")) %>
+                 <%= render user %>
+              <% end %>
             </tr>
           <% end %>
         </tbody>

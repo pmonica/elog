@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  resources :situations
+  resources :situations, shallow: true do
+      resources :events
+  end
 
   resources :organizations
 
@@ -8,4 +10,5 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :registrations => "registrations" }
 
   resources :users
+
 end

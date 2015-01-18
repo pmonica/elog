@@ -43,12 +43,12 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(augmented_organization_params)
 
     if @organization.save
-      flash[:notice] = 'Organization was successfully created.'
-      flash[:notice] = "User default_"+" #{@organization.name}".gsub!(/\s/, "")+"_#{@organization.country}@example.com created."
-
-      @newautouser = User.create(:name => " Default_#{@organization.name}_#{@organization.country}".gsub!(/\s/, ""), email: " default_#{@organization.name}_#{@organization.country}".gsub!(/\s/, "")+"@example.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => 'change', :password_confirmation => 'change')
-      @newautouser.confirm!
-    
+   
+        salt=('a'..'z').to_a.shuffle[0,8].join
+        @newautouser = User.create(:name => salt + " _#{@organization.name}_#{@organization.country}".gsub!(/\s/, ""), email: salt + " _#{@organization.name}_#{@organization.country}".gsub!(/\s/, "")+"@nodomain.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => salt, :password_confirmation => salt)
+        @newautouser.confirm!
+        flash[:notice] = "Organization was successfully created. Read-only user created: email: " + salt + " _#{@organization.name}".gsub!(/\s/, "")+"_#{@organization.country}@nodomain.com; Password: " + salt
+      
     end
     respond_with(@organization)
   end
@@ -67,11 +67,13 @@ class OrganizationsController < ApplicationController
            users_to_kill.map do |u|
               pass=('a'..'z').to_a.shuffle[0,20].join
               salt=('a'..'z').to_a.shuffle[0,20].join
-              u.email=salt+u.email
+              u.email=salt+"user_"+u.email+"_deactivated"
               u.role=0
               u.password=pass
               u.password_confirmation=pass
               u.confirm!
+              u.save!
+
            end
        end
 
