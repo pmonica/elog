@@ -8,5 +8,35 @@
     <li><a href="/organizations"><i class="glyphicon glyphicon-link"></i> Organizations</a></li>
     <li><a href="/users"><i class="glyphicon glyphicon-user"></i> Users</a></li>
   </ul>
+
+  <hr>
+
+  <i class="glyphicon glyphicon-info-sign"></i><button class="btn btn-link" data-toggle="modal" data-target="#helpModal">Help</button>
+
   
 </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="helpModal" tabindex="-1" role="dialog" aria-labelledby="Help" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="helpModal">Help</h4>
+        </div>
+        <div class="modal-body">
+          <p> Colors - represent the sensitivity of the information </p>
+          <p>						RED    - Secret </p>
+          <p>						YELLOW - Private </p>
+          <p>						GREEN  - Public</p>
+          <p> Symbols - represent the nature of the information</p>
+          <p>              <i class="glyphicon glyphicon-globe"></i> - International</p>
+          <p>              <i class="glyphicon glyphicon-share-alt"></i> - National</p>
+          <p>              <i class="glyphicon glyphicon-chevron-right"></i> - Local</p>
+          <p> Emphasis on user name - indicates that tha event is a "Decision" type event. That is: That User issued a decision.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
