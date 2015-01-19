@@ -31,14 +31,14 @@
         </tbody>
       </table>
     <!--<hr>-->
-  </div>
+  </div> <!-- col-sm-9 --> 
 
-  <div>
+  <div> <!-- Cabeçalho dos eventos -->
      <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
 
      <%= link_to 'New Event', new_situation_event_path(@situation), :type => 'button', :class => 'btn btn-primary'%>
      
-  </div>
+  </div> <!-- Cabeçalho dos eventos -->
   <hr>
 
   <!-- Agora mostra os eventos -->
@@ -84,14 +84,19 @@
 
 
           <% if event.comments.count != 0 %>
-             <div class="col-md-6"> <a href="javascript:;" onclick="$(comments_<%= event.id %>).toggle();"> <%= event.title %> </a>  </div>
+             <div class="col-md-5"> <a href="javascript:;" onclick="$(comments_<%= event.id %>).toggle();"> <%= event.title %> </a>  </div>
           <% else %>
-             <div class="col-md-6"> <p> <%= event.title %> </p></div>
+             <div class="col-md-5"> <p> <%= event.title %> </p></div>
           <% end %>
 
-       </div>
+          <div class="col-md-1">
+              <%= link_to 'Add', new_event_comment_path(event), :type => 'button', :class => 'btn btn-primary'%>
+          </div>
+       </div> <!-- row do evento -->
 
-    </div>
+ 
+    </div> <!-- bs-callout do evento -->
+
 
     <!-- Agora mostra os comments do evento -->
     <div id="comments_<%= event.id %>" style="display:none"; >
