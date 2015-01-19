@@ -2,13 +2,13 @@ class EventPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.all.order(created_at: :desc)
+        scope.all.order(updated_at: :desc)
       else
 
         # Vai buscar o valor numerico da clerance do utilizador para usar no Query
         user_clearance = User.clearances[user.clearance]
         levels = Event.levels
-        scope.order(created_at: :desc).where("sensitivity <= :user_clearance AND (((owner_organization = :organization_id) 
+        scope.order(updated_at: :desc).where("sensitivity <= :user_clearance AND (((owner_organization = :organization_id) 
               AND (level = :local_level)) 
               OR  ((:user_country = (SELECT country FROM organizations WHERE id = owner_organization LIMIT 1)) 
               AND (level = :national_level))  OR 

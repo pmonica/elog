@@ -1,15 +1,17 @@
-<%= simple_form_for(@comment) do |f| %>
-  <%= f.error_notification %>
+  <%= simple_form_for [@event, @comment] do |f| %>
+     <% f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :user_id %>
-    <%= f.input :body %>
-    <%= f.input :event_id %>
-    <%= f.input :sensitivity %>
-    <%= f.input :level %>
-  </div>
+      <% @comment.sensitivity=@event.sensitivity %>
+      <% @comment.level=@event.level %>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-primary' %>
-  </div>
+      <div class="form-inputs">
+        <%= f.input :body, label: 'Enter comment' %>
+        <%= f.input :sensitivity, collection: @sensitivities.keys %>
+        <%= f.input :level, collection: Comment.levels.keys  %>
+      </div>
+
+      <div class="form-actions"> 
+          <%= f.button :submit , controller: event_comments_path(@event), class: 'btn btn-primary' %>  
+      </div>
+
 <% end %>
