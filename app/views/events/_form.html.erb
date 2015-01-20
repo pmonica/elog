@@ -7,7 +7,9 @@
         <%= f.input :title, label: 'Event description' %>
         <%= f.input :sensitivity, collection: @sensitivities.keys %>
         <%= f.input :level, collection: Event.levels.keys %>
-        <%= f.input :decision, default: false, as: :radio_buttons %>
+        <% if (current_user.p3? || current_user.p4? || current_user.admin?) %>
+           <%= f.input :decision, default: false, as: :radio_buttons %>
+        <% end %>
       </div>
 
 
