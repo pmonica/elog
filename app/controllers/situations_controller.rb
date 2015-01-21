@@ -34,6 +34,13 @@ class SituationsController < ApplicationController
 
     @situation = Situation.new(augmented_situation_params)
     @situation.save
+   
+    # Create an event to record the situation's creation
+    evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+             :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+             :title => "Situation \"#{@situation.name}\" created as \"#{@situation.sensitivity}\", \"#{@situation.level}\".
+             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+    evento.save
 
     respond_with(@situation)
   end
@@ -44,7 +51,19 @@ class SituationsController < ApplicationController
     if params.has_key?(:situation)
        @situation.update(situation_params)
        respond_with(@situation)
-    else  
+       # Create an event to record the situation's change
+       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+             :title => "Situation \"#{@situation.name}\" modified to \"#{@situation.sensitivity}\", \"#{@situation.level}\".
+             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+       evento.save
+    else
+       # Create an event to record the deactivation
+       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+             :title => "Situation \"#{@situation.name}\" deactived. Was \"#{@situation.sensitivity}\", \"#{@situation.level}\".
+             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+       evento.save
        @situation.active=false
        @situation.save
        redirect_to situations_path
