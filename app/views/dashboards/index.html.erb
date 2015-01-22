@@ -7,11 +7,14 @@
 
     <div class="row">
       <div class="col-md-7">
-        <div class="well">Registered Users <span class="badge pull-right"><%= User.count %></span></div>
-        <div class="well">Situations <span class="badge pull-right"><%= Situation.count %></span></div>
-        <div class="well">Organizations <span class="badge pull-right"><%= Organization.count %></span></div>
-        <hr>
-
+        <% if current_user.admin? %>
+            <div class="well">Registered Users <span class="badge pull-right"><%= User.count %></span></div>
+            <div class="well">Situations <span class="badge pull-right"><%= Situation.count %></span></div>
+            <div class="well">Organizations <span class="badge pull-right"><%= Organization.count %></span></div>
+            <hr>
+        <% else %>
+            <%= image_tag "cover.png" %>
+        <% end %>
       </div><!--/col-->
       <%= render 'layouts/right_icons' %>
     </div><!--/row-->
