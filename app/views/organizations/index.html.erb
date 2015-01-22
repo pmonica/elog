@@ -25,34 +25,8 @@
         <% end %> <!-- end do --> 
       </tbody>
     </table>
-  </div> <!-- end da div que refresca -->
+  </div> <!-- end da div  -->
   <hr>
   <%= link_to 'New Organization', new_organization_path, :type => 'button', :class => 'btn btn-primary'%>
 </div>
-
-
-<HTML>
-<HEAD>
- 
-
-<script>
-    $(document).ready(
-            function() {
-                setInterval(function() {
-                    var randomnumber = Math.floor(Math.random() * 100);
-                    $('#info').text(
-                            'I am getting refreshed every 3 seconds..! Random Number ==> '
-                                    + randomnumber);
-                }, 3000);
-            });
-</script>
- 
-</HEAD>
-<BODY>
-    <br>
-    <br>
-    <div id="info" align="center"></div>
- 
-</BODY>
-</HTML>
 
