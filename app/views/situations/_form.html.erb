@@ -1,6 +1,10 @@
 <%= simple_form_for(@situation) do |f| %>
   <%= f.error_notification %>
 
+  <% @situation.sensitivity="Private" %>
+  <% @situation.level="Local" %>
+
+
   <div class="form-inputs">
     <%= f.input :name %>
     <%= f.input :description %>
