@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
 
   has_many :events
   has_many :situations
+  has_many :comments
   belongs_to :organization
   validates_presence_of :organization, :unless => Proc.new { |u| u.admin? }
 end

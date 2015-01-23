@@ -1,14 +1,14 @@
 class OrganizationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
-      if defined?(user.id)==nil # will now return true or false
-            scope.active.where("name  <> :orgadmin", {orgadmin: "ADMIN"})        
+      if defined?(user.id)==nil # At the sign-up page, no user is yet defined
+            scope.active.order(country: :asc).where("name  <> :orgadmin", {orgadmin: "ADMIN"})        
       else
          if user.admin? 
-            scope.where("name  <> :orgadmin", {orgadmin: "ADMIN"})
+            scope.order(country: :asc).where("name  <> :orgadmin", {orgadmin: "ADMIN"})
           else
             if user.p4?
-                scope.where(
+                scope.order(country: :asc).where(
                              "(name  <> :orgadmin) AND 
                               ((active='t') OR  
                                ( (active = 'f') AND (creator_org = :creator_organization) AND (creator_country=:creator_country) )
@@ -16,7 +16,7 @@ class OrganizationPolicy < ApplicationPolicy
                               creator_organization: user.organization.name, creator_country: user.organization.country, true: "true", false: "false"})
             else
               if !user.p0? 
-                 scope.active.where("name  <> :orgadmin", {orgadmin: "ADMIN"})
+                 scope.active.order(country: :asc).where("name  <> :orgadmin", {orgadmin: "ADMIN"})
               else
                  scope.active.where(id: user.organization.id)
               end
