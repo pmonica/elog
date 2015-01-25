@@ -9,11 +9,11 @@
 
 
 # Criar organizacoes de exemplo
-mrcc = Organization.create(:name => "MRCC", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
-comar = Organization.create(:name => "COMAR", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
-mrccn = Organization.create(:name => "MRCC", :country => "Nigeria", :creator_org =>"ADMIN", :creator_country => "Portugal")
-inem = Organization.create(:name => "INEM", :country => "Brazil", :creator_org =>"ADMIN", :creator_country => "Portugal")
-orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal", :creator_org =>"ADMIN", :creator_country => "Portugal")
+mrcc = Organization.create(:name => "MRCC", :country => "Portugal",  :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
+comar = Organization.create(:name => "COMAR", :country => "Portugal", :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
+mrccn = Organization.create(:name => "MRCC", :country => "Nigeria",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
+inem = Organization.create(:name => "INEM", :country => "Brazil",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
+orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
 
 # Criar administrador
   user = CreateAdminService.new.call
