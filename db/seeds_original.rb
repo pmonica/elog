@@ -26,57 +26,53 @@ orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal",   :acti
 # Criar utilizadores de exemplo
 
 
-  diogo = User.new
-  diogo.email= "diogo@example.com"
-  diogo.name = "Diogo Monica"
-  diogo.organization = comar
-  diogo.clearance = :Secret
-  diogo.role = :p3
-  diogo.password = 'change'
-  diogo.password_confirmation = 'change'
-  diogo.confirm!
+diogo = User.find_or_create_by!(email: 'diogo@example.com') do |user|
+  user.name = "Diogo Monica"
+  user.organization = comar
+  user.clearance = :Secret
+  user.role = :p3
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
-  nuno = User.new
-  nuno.email= "nuno@example.com"
-  nuno.name = "Nuno Monica"
-  nuno.organization = mrcc
-  nuno.clearance = :Private
-  nuno.role = :p2
-  nuno.password = 'change'
-  nuno.password_confirmation = 'change'
-  nuno.confirm!
+nuno = User.find_or_create_by!(email: 'nuno@example.com') do |user|
+  user.name = "Nuno Monica"
+  user.organization = mrcc
+  user.clearance = :Private
+  user.role = :p2
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
-  paulo = User.new
-  paulo.email=  "paulo@example.com"
-  paulo.name = "Paulo Monica"
-  paulo.organization = mrccn
-  paulo.clearance = :Public
-  paulo.role = :p1
-  paulo.password = 'change'
-  paulo.password_confirmation = 'change'
-  paulo.confirm!
+paulo = User.find_or_create_by!(email: 'paulo@example.com') do |user|
+  user.name = "Paulo Monica"
+  user.organization = mrccn
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
+adilson = User.find_or_create_by!(email: 'adilson@example.com') do |user|
+  user.name = "Adilson Fagundes"
+  user.organization = inem
+  user.clearance = :Secret
+  user.role = :p3
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
-  adilson = User.new
-  adilson.email= "adilson@example.com"
-  adilson.name = "Adilson Fagundes"
-  adilson.organization = inem
-  adilson.clearance = :Secret
-  adilson.role = :p3
-  adilson.password = 'change'
-  adilson.password_confirmation = 'change'
-  adilson.confirm!
-
-
-  ladmin = User.new
-  ladmin.email="ladmin@example.com"
-  ladmin.name = "Local Admin"
-  ladmin.organization = comar
-  ladmin.clearance = :Secret
-  ladmin.role = :p4
-  ladmin.password = 'change'
-  ladmin.password_confirmation = 'change'
-  ladmin.confirm!
+ladmin = User.find_or_create_by!(email: 'ladmin@example.com') do |user|
+  user.name = "Local Admin"
+  user.organization = comar
+  user.clearance = :Secret
+  user.role = :p4
+  user.password = 'change'
+  user.password_confirmation = 'change'
+  user.confirm!
+end
 
 
 # Criar situacoes de exemplo
