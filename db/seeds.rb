@@ -9,19 +9,58 @@
 
 
 # Criar organizacoes de exemplo
-mrcc = Organization.create(:name => "MRCC", :country => "Portugal",  :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
-comar = Organization.create(:name => "COMAR", :country => "Portugal", :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
-mrccn = Organization.create(:name => "MRCC", :country => "Nigeria",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
-inem = Organization.create(:name => "INEM", :country => "Brazil",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
-orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal",   :active => true, :creator_org =>"ADMIN", :creator_country => "Portugal")
+mrcc = Organization.new
+mrcc.name = "MRCC"
+mrcc.country = "Portugal"
+mrcc.active = true
+mrcc.creator_org ="ADMIN"
+mrcc.creator_country = "Portugal"
+mrcc.save
+
+comar = Organization.new
+comar.name = "COMAR"
+comar.country = "Portugal"
+comar.active = true
+comar.creator_org ="ADMIN"
+comar.creator_country = "Portugal"
+comar.save
+
+mrccn = Organization.new
+mrccn.name ="MRCC"
+mrccn.country = "Nigeria"
+mrccn.active = true
+mrccn.creator_org ="ADMIN"
+mrccn.creator_country = "Portugal"
+mrccn.save
+
+inem = Organization.new
+inem.name = "INEM"
+inem.country = "Brazil"
+inem.active = true
+inem.creator_org ="ADMIN"
+inem.creator_country = "Portugal"
+inem.save
+
+orgadmin = Organization.new
+orgadmin.name = "ADMIN"
+orgadmin.country = "Portugal"
+orgadmin.active = true
+orgadmin.creator_org ="ADMIN"
+orgadmin.creator_country = "Portugal"
+orgadmin.save
 
 # Criar administrador
-  user = CreateAdminService.new.call
-  user.name = "Admin"
-  user.organization = orgadmin
-  user.clearance = :Secret
-  user.role = :admin
-  user.save!
+  admin = User.new
+  admin.email= "admin@example.com"
+  admin.admin!
+  admin.name = "Admin"
+  admin.organization = orgadmin
+  admin.clearance = :Secret
+  admin.role = :admin
+  admin.password = 'change'
+  admin.password_confirmation = 'change'
+  admin.confirm!
+  admin.save!
 
 # Criar utilizadores de exemplo
 
@@ -80,13 +119,64 @@ orgadmin = Organization.create(:name => "ADMIN", :country => "Portugal",   :acti
 
 
 # Criar situacoes de exemplo
-primeira = Situation.create(:user => adilson, :organization => adilson.organization, :name => "Homem ao mar", :description => "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil", :level => :Local, :sensitivity => :Public)
-segunda = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Poluicao no guincho", :description => "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas.", :level => :National, :sensitivity => :Public)
-terceira = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Homicidio no guincho", :description => "Este e um evento Internacional que esta relacionado com um potencial homicidio no guincho", :level => :National, :sensitivity => :Private)
-quarta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Terrorismo no guincho", :level => :International, :sensitivity => :Secret)
-quinta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Empanado", :level => :International, :sensitivity => :Private)
-sexta = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Navio Afundado", :level => :National, :sensitivity => :Secret)
-setima = Situation.create(:user => diogo, :organization => diogo.organization, :name => "Apanha de ostras", :level => :Local, :sensitivity => :Private)
+primeira = Situation.new
+primeira.user = adilson
+primeira.organization = adilson.organization
+primeira.name = "Homem ao mar"
+primeira.description = "Este e um evento nacional que esta relacionado com a potencial existencia de um naufrago que caiu ao mar no brazil"
+primeira.level = "Local"
+primeira.sensitivity = "Public"
+primeira.save
+
+
+segunda = Situation.new
+segunda.user = diogo
+segunda.organization = diogo.organization
+segunda.name = "Poluicao no guincho"
+segunda.description = "Este que esta relacionado com a potencial existencia de poluiacao no Guincho. Coitadinhas das focas."
+segunda.level = "National"
+segunda.sensitivity = "Public"
+segunda.save
+
+terceira=Situation.new
+terceira.user = diogo
+terceira.organization = diogo.organization
+terceira.name = "Homicidio no guincho"
+terceira.level = "National"
+terceira.sensitivity = "Private"
+terceira.save
+
+quarta = Situation.new
+quarta.user = diogo
+quarta.organization = diogo.organization
+quarta.name = "Terrorismo no guincho"
+quarta.level = "International"
+quarta.sensitivity = "Secret"
+quarta.save
+
+quinta = Situation.new
+quinta.user = diogo
+quinta.organization = diogo.organization
+quinta.name = "Navio Empanado"
+quinta.level = "International"
+quinta.sensitivity = "Private"
+quinta.save
+
+sexta = Situation.new
+sexta.user = diogo
+sexta.organization = diogo.organization
+sexta.name = "Navio Afundado"
+sexta.level = "National"
+sexta.sensitivity = "Secret"
+sexta.save
+
+setima = Situation.new
+setima.user = diogo
+setima.organization = diogo.organization
+setima.name = "Apanha de ostras"
+setima.level = "Local"
+setima.sensitivity = "Private"
+setima.save
 
 # Criar participacoes de exemplo
 primeira.organizations << [inem]
@@ -99,25 +189,114 @@ setima.organizations << [mrcc, comar]
 
 
 # Criar events
-evento1 = Event.create(:user => diogo, :organization => diogo.organization, situation: primeira, sensitivity: :Public, level: :Local, title: "O homem caiu ao mar na figueira da foz")
-evento2 = Event.create(:user => diogo, :organization => diogo.organization, situation: primeira, sensitivity: :Secret, level: :Local, title: "O morto foi identificado")
+e1 = Event.new
+e1.user = diogo
+e1.organization = diogo.organization
+e1.situation=primeira
+e1.sensitivity="Public"
+e1.level="Local"
+e1.title= "O homem caiu ao mar na figueira da foz"
+e1.save
 
-evento3 = Event.create(:user => diogo, :organization => diogo.organization, situation: terceira, sensitivity: :Public, level: :International, decision: true, title: "Homem matou outro na praca")
-evento4 = Event.create(:user => diogo, :organization => diogo.organization, situation: terceira, sensitivity: :Private, level: :National, title: "Encontrada a arma do crime")
+e2 = Event.new
+e2.user = diogo
+e2.organization = diogo.organization
+e2.situation= primeira
+e2.sensitivity="Secret"
+e2.level="Local"
+e2.title= "O morto foi identificado"
+e2.save
 
-evento5 = Event.create(:user => diogo, :organization => diogo.organization, situation: quarta, sensitivity: :Secret, level: :Local, title: "Foi encontrada uma bomba na praca. A razao pela qual ela não rebentou não é, de momento, conhecida. Há quem diga que não recentou porque, sendo uma bomba de ar manual, daquelas de dar ao pedal, e não estando lá niguém a pedalar, dificilmente aquilo poderia ter criado pressão para rebentar. Mas o facto é, que, honestamente, não sabemos")
+e3 = Event.new
+e3.user = diogo
+e3.organization = diogo.organization
+e3.situation= terceira
+e3.sensitivity="Public"
+e3.level="International"
+e3.decision=true
+e3.title= "Homem matou outro na praca"
+e3.save
+
+e4 = Event.new
+e4.user = diogo
+e4.organization = diogo.organization
+e4.situation= terceira
+e4.sensitivity="Private"
+e4.level="National"
+e4.title= "Encontrada a arma do crime"
+e4.save
+
+e5 = Event.new
+e5.user = diogo
+e5.organization = diogo.organization
+e5.situation= quarta
+e5.sensitivity="Secret"
+e5.level="Local"
+e5.title= "Foi encontrada uma bomba na praca. A razao pela qual ela não rebentou não é, de momento, conhecida. Há quem diga que não recentou porque, sendo uma bomba de ar manual, daquelas de dar ao pedal, e não estando lá niguém a pedalar, dificilmente aquilo poderia ter criado pressão para rebentar. Mas o facto é, que, honestamente, não sabemos"
+e5.save
 
 # Criar comments
 
-c = Comment.create(:body => "O homem tinha uma tshirt vermelha", :event => evento1, :user => diogo, :organization => diogo.organization, sensitivity: :Public, level: :Local)
-c = Comment.create(:body => "O homem tinha uma mulher feiosa", :event => evento1, :user => diogo, :organization => diogo.organization, :sensitivity => :Secret, level: :Local)
+c1 = Comment.new
+c1.body = "O homem tinha uma tshirt vermelha"
+c1.event = evento1
+c1.user = diogo
+c1.organization = diogo.organization
+c1.sensitivity="Public"
+c1.level="Local"
+c1.save
 
-c = Comment.create(:body => "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um 
-                            corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas u
-                            nhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas.", :event => evento3, :user => diogo, :organization => diogo.organization, sensitivity: :Public, level: :Local)
-c = Comment.create(:body => "A faca tinha 30 Cms", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :Private, level: :National)
-c = Comment.create(:body => "A faca tinha um cabo metalico", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :Public, level: :National)
-c = Comment.create(:body => "A faca tinha era afiada", :event => evento4, :user => diogo, :organization => diogo.organization, sensitivity: :Public, level: :Local)
+c2 = Comment.new
+c2.body = "O homem tinha uma mulher feiosa"
+c2.event = evento1
+c2.user = diogo
+c2.organization = diogo.organization
+c2.sensitivity = "Secret"
+c2.level="Local"
+c2.save
+
+c3 = Comment.new
+c3.body = "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas unhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas."
+c3.event = evento3
+c3.user = diogo
+c3.organization = diogo.organization
+c3.sensitivity="Public"
+c3.level="Local"
+c3.save
+
+c4 = Comment.new
+c4.body = "A faca tinha 30 Cms"
+c4.event = evento4
+c4.user = diogo
+c4.organization = diogo.organization
+c4.sensitivity="Private"
+c4.level="National"
+c4.save
+
+c5 = Comment.new
+c5.body = "A faca tinha um cabo metalico"
+c5.event = evento4
+c5.user = diogo
+c5.organization = diogo.organization
+c5.sensitivity="Public"
+c5.level="National"
+c5.save
+
+c6 = Comment.new
+c6.body = "A faca tinha era afiada"
+c6.event = evento4
+c6.user = diogo
+c6.organization = diogo.organization
+c6.sensitivity="Public"
+c6.level="Local"
+c6.save
 
 
-c = Comment.create(:body => "A bomba era amarela", :event => evento5, :user => diogo, :organization => diogo.organization, sensitivity: :Public, level: :International)
+c7 = Comment.new
+c7.body = "A bomba era amarela"
+c7.event = evento5
+c7.user = diogo
+c7.organization = diogo.organization
+c7.sensitivity="Public"
+c7.level="International"
+c7.save
