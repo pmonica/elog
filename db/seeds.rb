@@ -50,17 +50,13 @@ orgadmin.creator_country = "Portugal"
 orgadmin.save
 
 # Criar administrador
-  admin = User.new
-  admin.email= "admin@example.com"
-  admin.admin!
-  admin.name = "Admin"
-  admin.organization = orgadmin
-  admin.clearance = :Secret
-  admin.role = :admin
-  admin.password = 'change'
-  admin.password_confirmation = 'change'
-  admin.confirm!
-  admin.save!
+  user = CreateAdminService.new.call
+  user.name = "Admin"
+  user.organization = orgadmin
+  user.clearance = :Secret
+  user.role = :admin
+  user.save!
+
 
 # Criar utilizadores de exemplo
 
