@@ -235,7 +235,7 @@ e5.save
 
 c1 = Comment.new
 c1.body = "O homem tinha uma tshirt vermelha"
-c1.event = evento1
+c1.event = e1
 c1.user = diogo
 c1.organization = diogo.organization
 c1.sensitivity="Public"
@@ -244,7 +244,7 @@ c1.save
 
 c2 = Comment.new
 c2.body = "O homem tinha uma mulher feiosa"
-c2.event = evento1
+c2.event = e1
 c2.user = diogo
 c2.organization = diogo.organization
 c2.sensitivity = "Secret"
@@ -253,7 +253,7 @@ c2.save
 
 c3 = Comment.new
 c3.body = "O homem matou o outro com uma faca, embora ninguém a tenha visto. Aliás, há bastantes dúvidas de que a faca fosse mesmo uma faca, e não apenas um corta-unhas que o criminoso tinha. É certo que, sendo o homicida um gajo com umas unhas enormes, o corta-unhas não podia ser pequeno. Mas crime é crime, bolas."
-c3.event = evento3
+c3.event = e3
 c3.user = diogo
 c3.organization = diogo.organization
 c3.sensitivity="Public"
@@ -262,7 +262,7 @@ c3.save
 
 c4 = Comment.new
 c4.body = "A faca tinha 30 Cms"
-c4.event = evento4
+c4.event = e4
 c4.user = diogo
 c4.organization = diogo.organization
 c4.sensitivity="Private"
@@ -271,7 +271,7 @@ c4.save
 
 c5 = Comment.new
 c5.body = "A faca tinha um cabo metalico"
-c5.event = evento4
+c5.event = e4
 c5.user = diogo
 c5.organization = diogo.organization
 c5.sensitivity="Public"
@@ -280,7 +280,7 @@ c5.save
 
 c6 = Comment.new
 c6.body = "A faca tinha era afiada"
-c6.event = evento4
+c6.event = e4
 c6.user = diogo
 c6.organization = diogo.organization
 c6.sensitivity="Public"
@@ -290,7 +290,7 @@ c6.save
 
 c7 = Comment.new
 c7.body = "A bomba era amarela"
-c7.event = evento5
+c7.event = e5
 c7.user = diogo
 c7.organization = diogo.organization
 c7.sensitivity="Public"
