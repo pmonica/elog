@@ -1,0 +1,107 @@
+<% if event.sensitivity == "Secret" %>
+    <div class="bs-callout bs-callout-danger" >
+<% else %>
+  <% if event.sensitivity == "Private" %>
+    <div class="bs-callout bs-callout-warning" >
+  <% else %>
+    <div class="bs-callout bs-callout-success" >
+  <% end %>
+<% end %>
+
+   <div class="row">
+
+      <!-- Creation time with symbol code for "Local/National/International" -->
+      <% if event.level == "International" %>
+          <div class="col-md-3"> <small>(<%= event.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
+      <% else %>
+         <% if event.level == "National" %>
+            <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
+         <% else %>
+            <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+         <% end %>
+      <% end %>
+
+      <!-- User name, with Font code for "Decision" -->
+      <% if event.decision  %>
+          <div class="col-md-2">  <kbd> <%= event.user.name %> </kbd>  </div>
+      <% else %>
+          <div class="col-md-2"> <%= event.user.name %> </div>
+      <% end %>
+
+      <!-- User organization, with Font code for "Decision" -->
+      <% if event.decision  %>
+          <div class="col-md-1"> <kbd> <%= event.user.organization.name %> </kbd> </div>
+      <% else %>
+          <div class="col-md-1"> <%= event.user.organization.name %> </div>
+      <% end %>
+
+
+      <% if event.comments.count != 0 %>
+         <div class="col-md-5"> <a href="javascript:;" onclick="$(comments_<%= event.id %>).toggle();"> <%= event.title %> </a>  </div>
+      <% else %>
+         <div class="col-md-5"> <p> <%= event.title %> </p></div>
+      <% end %>
+
+      <div class="col-md-1">
+          <%= link_to 'Add', new_event_comment_path(event), :type => 'button', :class => 'btn btn-primary btn-sm'%>
+      </div>
+   </div> <!-- row do evento -->
+
+
+</div> <!-- bs-callout do evento -->
+
+
+<!-- Agora mostra os comments do evento -->
+<div id="comments_<%= event.id %>" style="display:none"; >
+
+   <% @comments=policy_scope(event.comments) %>
+   <% @comments.each do |comment| %>
+     <div class="row">
+       <!-- Indenta -->
+       <div class="col-md-1"> </div>
+
+       <!-- Comecemos com o evento -->
+        <div class="col-md-11">
+
+
+          <% if comment.sensitivity == "Secret" %>
+              <div class="bs-callout bs-callout-info-d" >
+          <% else %>
+              <% if comment.sensitivity == "Private" %>
+                 <div class="bs-callout bs-callout-info-w" >
+              <% else %>
+                 <div class="bs-callout bs-callout-info-s" >
+              <% end %>
+          <% end %>
+
+              <div class="row">
+
+                  <!-- Creation time with symbol code for "Local/National/International" -->
+                  <% if comment.level == "International" %>
+                      <div class="col-md-3"> <small>(<%= comment.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
+                  <% else %>
+                     <% if comment.level == "National" %>
+                        <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
+                     <% else %>
+                        <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+                     <% end %>
+                  <% end %>
+
+                  <!-- User name -->
+                  <div class="col-md-2"> <%= comment.user.name %> </div>
+
+
+                  <!-- User organization -->
+                  <div class="col-md-1"> <%= comment.user.organization.name %> </div>
+
+                  <!-- Comment body -->
+                  <div class="col-md-5"> <%= comment.body %> </div>
+              </div>
+
+           </div>
+       </div>
+
+     </div>
+   <% end %>
+</div>
+

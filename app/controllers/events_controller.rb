@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_sensitivities, only: [:create, :new]
   after_action :verify_authorized
-  
+
   respond_to :html
 
   # def index
@@ -32,6 +32,7 @@ class EventsController < ApplicationController
     @event = Event.new(augmented_event_params)
     @event.save
 
+    sync_new @event, scope: @situation
     redirect_to situation_path(@situation)
   end
 

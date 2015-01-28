@@ -14,6 +14,9 @@ gem 'devise'
 gem 'pundit'
 gem 'simple_form'
 gem 'country_select'
+gem 'sync', :git => 'https://github.com/chrismccord/sync'
+gem 'faye'
+gem 'thin'
 
 group :development, :test do
   gem 'sqlite3'

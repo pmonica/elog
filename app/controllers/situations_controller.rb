@@ -34,10 +34,10 @@ class SituationsController < ApplicationController
 
     @situation = Situation.new(augmented_situation_params)
     @situation.save
-   
+
     # Create an event to record the situation's creation
     evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-             :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+             :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level,
              :title => "Situation \"#{@situation.name}\" created as \"#{@situation.sensitivity}\", \"#{@situation.level}\".
              Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
     evento.save
@@ -47,20 +47,20 @@ class SituationsController < ApplicationController
 
   def update
     authorize @situation
-   
+
     if params.has_key?(:situation)
        @situation.update(situation_params)
        respond_with(@situation)
        # Create an event to record the situation's change
        evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level,
              :title => "Situation \"#{@situation.name}\" modified to \"#{@situation.sensitivity}\", \"#{@situation.level}\".
              Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
        evento.save
     else
        # Create an event to record the deactivation
        evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level,
              :title => "Situation \"#{@situation.name}\" deactived. Was \"#{@situation.sensitivity}\", \"#{@situation.level}\".
              Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
        evento.save
@@ -68,7 +68,7 @@ class SituationsController < ApplicationController
        @situation.save
        redirect_to situations_path
     end
-    
+
   end
 
   # def destroy
@@ -88,11 +88,11 @@ class SituationsController < ApplicationController
 
         unless new_params[:organization_ids].include?(current_user.organization.id.to_s)
           new_params[:organization_ids] << current_user.organization.id.to_s
-      
+
         end
 
         new_params
-    
+
     end
 
     def set_sensitivites
