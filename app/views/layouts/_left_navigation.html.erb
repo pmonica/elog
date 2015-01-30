@@ -6,7 +6,9 @@
   <ul class="nav nav-stacked">
     <li><a href="/situations"><i class="glyphicon glyphicon-flash"></i> Situations</a></li>
     <li><a href="/organizations"><i class="glyphicon glyphicon-link"></i> Organizations</a></li>
-    <li><a href="/users"><i class="glyphicon glyphicon-user"></i> Users</a></li>
+    <% if (current_user.admin? || current_user.p4?) %>
+       <li><a href="/users"><i class="glyphicon glyphicon-user"></i> Users</a></li>
+    <% end %>
     <li><strong></i><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#helpModal">Help</button></strong></li>
   </ul>
   
