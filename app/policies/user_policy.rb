@@ -9,7 +9,7 @@ class UserPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.admin?
-        scope.all.order(created_at: :desc)
+        scope.all.order(organization_id: :desc)
       else
         if user.p4?
            scope.order(created_at: :desc).where("organization_id = :user_organization", {user_organization: user.organization.id})

@@ -1,14 +1,21 @@
 <td>
-  <%= link_to user.email, user %>
+  <%= link_to user.name, user %>
+</td>
+<td>
+  <%= user.organization.name + "-" + user.organization.country %>
 </td>
 <td>
   <%= form_for(user) do |f| %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
     <%= f.submit 'Change Role', :class => 'button-xs' %>
+  <% end %>
+</td>
+<td>
+  <%= form_for(user) do |f| %>
     <%= f.select(:clearance, User.clearances.keys.map {|clearance| [clearance.titleize,clearance]}) %>
     <%= f.submit 'Change Clearance', :class => 'button-xs' %>
   <% end %>
 </td>
 <td>
-  <%= link_to("Deactivate user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
+  <%= link_to("Deactivate", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
 </td>
