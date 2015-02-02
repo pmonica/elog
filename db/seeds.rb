@@ -7,52 +7,48 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+orgadmin = Organization.new
+orgadmin.name = "ADMIN"
+orgadmin.country = "Portugal"
+orgadmin.active = true
+orgadmin.organization =orgadmin
+orgadmin.save
 
 # Criar organizacoes de exemplo
 mrcc = Organization.new
 mrcc.name = "MRCC"
 mrcc.country = "Portugal"
 mrcc.active = true
-mrcc.creator_org ="ADMIN"
-mrcc.creator_country = "Portugal"
+mrcc.organization =orgadmin
 mrcc.save
 
 comar = Organization.new
 comar.name = "COMAR"
 comar.country = "Portugal"
 comar.active = true
-comar.creator_org ="ADMIN"
-comar.creator_country = "Portugal"
+comar.organization =orgadmin
 comar.save
 
 mrccn = Organization.new
 mrccn.name ="MRCC"
 mrccn.country = "Nigeria"
 mrccn.active = true
-mrccn.creator_org ="ADMIN"
-mrccn.creator_country = "Portugal"
+mrccn.organization =orgadmin
 mrccn.save
 
 inem = Organization.new
 inem.name = "INEM"
 inem.country = "Brazil"
 inem.active = true
-inem.creator_org ="ADMIN"
-inem.creator_country = "Portugal"
+inem.organization =orgadmin
 inem.save
 
-orgadmin = Organization.new
-orgadmin.name = "ADMIN"
-orgadmin.country = "Portugal"
-orgadmin.active = true
-orgadmin.creator_org ="ADMIN"
-orgadmin.creator_country = "Portugal"
-orgadmin.save
+
 
 # Criar administrador
   user = CreateAdminService.new.call
   user.name = "Admin"
-  user.organization = orgadmin
+  user.organization = orgadmin 
   user.clearance = :Secret
   user.role = :admin
   user.save!

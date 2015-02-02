@@ -12,17 +12,37 @@
      <% end %> <!-- if admin or p4 -->
      <%= link_to 'Edit', edit_organization_path(@organization), :type => 'button', :class => 'btn btn-primary' %></h3>
      <hr>
-      <p>
-      <strong>Name:</strong>
-      <%= @organization.name %>
-      </p>
 
-      <p>
-        <strong>Country:</strong>
-        <%= @organization.country %>
-      </p>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="bs-callout bs-callout-primary" >
 
-      <table class="table table-striped">
+            <p>
+            <strong>Name:</strong>
+            <%= @organization.name %>
+            </p>
+
+            <p>
+              <strong>Country:</strong>
+              <%= @organization.country %>
+            </p>
+            
+            <p>
+              <% if  @organization.organization.name != "ADMIN" %>
+                  <strong>Created by:</strong>
+                  <%= @organization.organization.name + ", at " +  @organization.organization.created_at.to_s %>
+              <% else %>
+                  <strong>Created at:</strong>
+                  <%= @organization.organization.created_at.to_s %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <hr>
+
+      <table class="table table-striped">       
         <thead>
           <tr>
             <th>Situations</th>
@@ -40,6 +60,7 @@
           <% end %>
         </tbody>
       </table>
+
     </div>
     <hr>
 </div>

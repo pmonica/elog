@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_clearances, only: [:index, :update]
+  before_action :set_roles, only: [:index, :update]
   after_action :verify_authorized
 
   def index
@@ -40,6 +42,18 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def set_clearances
+      clearance_hash = User.clearances
+      @clearances = clearance_hash.select { |c| clearance_hash[c] <= clearance_hash[current_user.clearance] }
+    end
+
+    def set_roles
+      role_hash = User.roles
+      @roles = role_hash.select { |r| role_hash[r] <= role_hash[current_user.role] }
+    end
+
+
 
   def secure_params
     params.require(:user).permit(:role, :organization_id, :clearance)

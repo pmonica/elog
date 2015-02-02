@@ -47,12 +47,13 @@ ActiveRecord::Schema.define(version: 20141226101359) do
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
     t.string   "country"
-    t.boolean  "active",          default: true
-    t.string   "creator_org"
-    t.string   "creator_country"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.boolean  "active",               default: true
+    t.integer  "creator_organization"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
+
+  add_index "organizations", ["creator_organization"], name: "index_organizations_on_creator_organization"
 
   create_table "participations", force: :cascade do |t|
     t.integer  "organization_id"

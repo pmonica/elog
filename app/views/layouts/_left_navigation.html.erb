@@ -8,6 +8,9 @@
     <li><a href="/organizations"><i class="glyphicon glyphicon-link"></i> Organizations</a></li>
     <% if (current_user.admin? || current_user.p4?) %>
        <li><a href="/users"><i class="glyphicon glyphicon-user"></i> Users</a></li>
+    <% else %>
+       
+       <li><a href=<%="/users/"+current_user.id.to_s %> ><i class="glyphicon glyphicon-user"></i> User profile</a></li>
     <% end %>
     <li><strong></i><button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#helpModal">Help</button></strong></li>
   </ul>

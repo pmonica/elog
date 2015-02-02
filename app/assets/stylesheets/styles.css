@@ -93,6 +93,7 @@ i {
 }
 .bs-callout-primary {
     border-left-color: #428bca;
+    background-color: #f0f7fd
 }
 .bs-callout-primary h4 {
     color: #428bca;
