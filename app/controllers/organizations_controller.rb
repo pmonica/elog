@@ -104,7 +104,7 @@ class OrganizationsController < ApplicationController
 
     def augmented_organization_params
         # Ensure that organization is created with the right creator organization and country (of the user that created it).
-        new_params = organization_params.merge(creator_org: current_user.organization.name, creator_country: current_user.organization.country)
+        new_params = organization_params.merge(creator_organization: current_user.organization.id)
     end
 
 end

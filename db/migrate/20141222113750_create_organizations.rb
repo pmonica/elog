@@ -4,8 +4,7 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string :name
       t.string :country
       t.boolean :active, default: true
-      t.string :creator_org
-      t.string :creator_country
+      t.integer :creator_organization, index: true
 
       t.timestamps null: false
     end

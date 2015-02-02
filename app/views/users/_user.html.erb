@@ -6,13 +6,14 @@
 </td>
 <td>
   <%= form_for(user) do |f| %>
-    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+
+    <%= f.select(:role, @roles.keys.map {|role| [role.titleize,role]}) %>
     <%= f.submit 'Change Role', :class => 'button-xs' %>
   <% end %>
 </td>
 <td>
   <%= form_for(user) do |f| %>
-    <%= f.select(:clearance, User.clearances.keys.map {|clearance| [clearance.titleize,clearance]}) %>
+    <%= f.select(:clearance, @clearances.keys.map {|clearance| [clearance.titleize,clearance]}) %>
     <%= f.submit 'Change Clearance', :class => 'button-xs' %>
   <% end %>
 </td>

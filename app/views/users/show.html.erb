@@ -1,4 +1,27 @@
-<h3>User</h3>
-<p>Name: <%= @user.name if @user.name %></p>
-<p>Email: <%= @user.email if @user.email %></p>
-<p>Organization: <%= @user.organization.name + "-" + @user.organization.country if @user.organization.name %></p>
+<h3>User Profile</h3>
+
+
+	<div class="col-sm-9">
+             <div class="bs-callout bs-callout-primary" >
+
+			    <p><strong>Name:</strong> <%= @user.name if @user.name %></p>
+			    <p><strong>Email:</strong> <%= @user.email+@user.email if @user.email %></p>
+			    <p><strong>Organization:</strong> <%= @user.organization.name + "-" + @user.organization.country if @user.organization.name %></p>
+			    <p><strong>Role:</strong> <%= @user.role if @user.role %></p>
+			    <p><strong>Clearance:</strong> <%= @user.clearance if @user.clearance %></p>
+             </div>
+	 </div>
+ 
+
+	<div class="col-sm-3">
+			<p><strong>p0:</strong> Awaiting aproval. No system permissions.</p>
+			<p><strong>p1:</strong> Read-only user.</p>
+			<p><strong>p2:</strong> Can create information events and comments.</p>
+			<p><strong>p3:</strong> Can also create and edit situations, and create decision events.</p>
+			<p><strong>p4:</strong> Can also create and edit organizations and its users.</p>
+	 </div> 
+
+
+ 
+
+

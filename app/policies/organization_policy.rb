@@ -11,9 +11,9 @@ class OrganizationPolicy < ApplicationPolicy
                 scope.order(country: :asc).where(
                              "(name  <> :orgadmin) AND 
                               ((active='t') OR  
-                               ( (active = 'f') AND (creator_org = :creator_organization) AND (creator_country=:creator_country) )
+                               ( (active = 'f') AND (creator_organization = :user_organization) )
                               )", {orgadmin: "ADMIN",
-                              creator_organization: user.organization.name, creator_country: user.organization.country, true: "true", false: "false"})
+                              user_organization: user.organization.id, true: "true", false: "false"})
             else
               if !user.p0? 
                  scope.active.order(country: :asc).where("name  <> :orgadmin", {orgadmin: "ADMIN"})
@@ -35,7 +35,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.admin? || (user.p4? && (record.creator_org==user.organization.name) && (record.creator_country==user.organization.country))
+    user.admin? || (user.p4? && (record.creator_organization==user.organization.id))
   end
 
   alias_method :update?, :edit?
