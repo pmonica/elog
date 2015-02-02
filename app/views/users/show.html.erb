@@ -5,7 +5,7 @@
              <div class="bs-callout bs-callout-primary" >
 
 			    <p><strong>Name:</strong> <%= @user.name if @user.name %></p>
-			    <p><strong>Email:</strong> <%= @user.email+@user.email if @user.email %></p>
+			    <p><strong>Email:</strong> <%= @user.email if @user.email %></p>
 			    <p><strong>Organization:</strong> <%= @user.organization.name + "-" + @user.organization.country if @user.organization.name %></p>
 			    <p><strong>Role:</strong> <%= @user.role if @user.role %></p>
 			    <p><strong>Clearance:</strong> <%= @user.clearance if @user.clearance %></p>
