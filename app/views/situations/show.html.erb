@@ -84,11 +84,14 @@
 
 
     //document.getElementById("demo").innerHTML = typeof str1  + " " + typeof sit_id + " " + typeof str3 + " = "  + str;
-    
-    setInterval(function(){
-         if (idle) {
-           $("#painel").load(str)
-         }
-        }, 5000);
+
+    if (typeof refresh_timer == 'undefined') {
+      var refresh_timer = setInterval(function(){
+          if (idle) {
+            $("#painel").load(str)
+          }
+         }, 7500);
+    }
+
 
 </script>
