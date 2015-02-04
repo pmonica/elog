@@ -9,7 +9,8 @@
 
 
 # Criar organizacoes de exemplo
-orgadmin = Organization.create(:name => "ADMIN", :active => true, :country => "Central Service", :organization => orgadmin)
+orgadmin = Organization.create(:name => "ADMIN", :active => true, :country => "International")
+orgadmin.organization =orgadmin
 o1 = Organization.create(:name => "Org 1", :active => true, :country => "Nigeria", :organization => orgadmin)
 o2 = Organization.create(:name => "Org 2", :active => true, :country => "Nigeria", :organization => orgadmin)
 o3 = Organization.create(:name => "Org 3", :active => true, :country => "Nigeria", :organization => orgadmin)

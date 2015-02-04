@@ -17,10 +17,10 @@ class UserPolicy < ApplicationPolicy
            temp=Organization.where(creator_organization: user.organization.id).each {|o| list=list+o.id.to_s+","}
            if list.length >= 3
              list=list[0..-2]+")"
+             scope.order(organization_id: :desc).where("(organization_id = :user_organization) OR (organization_id IN "+list+")", {user_organization: user.organization.id})
            else
-              list=list+")"
-           end
-           scope.order(organization_id: :desc).where("(organization_id = :user_organization) OR (organization_id IN "+list+")", {user_organization: user.organization.id})
+             scope.order(organization_id: :desc).where("organization_id = :user_organization", {user_organization: user.organization.id})
+           end  
         else
            scope.where("id = :user_id", {user_id: user.id})
         end
