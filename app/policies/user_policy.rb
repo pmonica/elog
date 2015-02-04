@@ -20,9 +20,7 @@ class UserPolicy < ApplicationPolicy
            else
               list=list+")"
            end
-           scope.order(organization_id: :desc).where("(organization_id = :user_organization) OR
-                                  (organization_id IN "+list+")", 
-                                  {user_organization: user.organization.id})
+           scope.order(organization_id: :desc).where("(organization_id = :user_organization) OR (organization_id IN "+list+")", {user_organization: user.organization.id})
         else
            scope.where("id = :user_id", {user_id: user.id})
         end
