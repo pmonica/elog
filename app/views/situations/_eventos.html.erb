@@ -53,7 +53,9 @@
           <% end %>
 
           <div class="col-md-1">
-              <%= link_to 'Add', new_event_comment_path(event), :type => 'button', :class => 'btn btn-primary btn-sm'%>
+              <% if @situation.active %>
+                 <%= link_to 'Add', new_event_comment_path(event), :type => 'button', :class => 'btn btn-primary btn-sm'%>
+              <% end %>
           </div>
        </div> <!-- row do evento -->
 

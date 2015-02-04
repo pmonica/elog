@@ -54,18 +54,19 @@ class SituationsController < ApplicationController
        # Create an event to record the situation's change
        evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
                  :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
-             :title => "Situation \"#{@situation.name}\" modified to \"#{@situation.sensitivity}\", \"#{@situation.level}\".
+             :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
              Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
        evento.save
     else
-       # Create an event to record the deactivation
-       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
-             :title => "Situation \"#{@situation.name}\" deactived. Was \"#{@situation.sensitivity}\", \"#{@situation.level}\".
-             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
-       evento.save
+       # We will enter here, when deactivation is done by a P3 via de deactivation button 
        @situation.active=false
        @situation.save
+        # Create an event to record the deactivation
+       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+             :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
+             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+       evento.save
        redirect_to situations_path
     end
     
