@@ -35,9 +35,9 @@
 
   <div> <!-- Cabeçalho dos eventos -->
      <strong><i class="glyphicon glyphicon-comment"></i> Events</strong>
-
-     <%= link_to 'New Event', new_situation_event_path(@situation), :type => 'button', :class => 'btn btn-primary'%>
-     
+      <% if @situation.active %>
+         <%= link_to 'New Event', new_situation_event_path(@situation), :type => 'button', :class => 'btn btn-primary'%>
+      <% end %> 
   </div> <!-- Cabeçalho dos eventos -->
   <hr>
 
