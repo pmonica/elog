@@ -44,10 +44,10 @@ class OrganizationsController < ApplicationController
 
     if @organization.save
    
-        salt=('a'..'z').to_a.shuffle[0,8].join
-        @newautouser = User.create(:name => salt + " _#{@organization.name}_#{@organization.country}".gsub!(/\s/, ""), email: salt + " _#{@organization.name}_#{@organization.country}".gsub!(/\s/, "")+"@nodomain.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => salt, :password_confirmation => salt)
+        salt=('a'..'z').to_a.shuffle[0,10].join
+        @newautouser = User.create(:name => "A" + salt, email: "A" + salt+"@nodomain.com", :organization => @organization, :clearance => :Public, :role => :p1, :password => salt, :password_confirmation => salt)
         @newautouser.confirm!
-        flash[:notice] = "Organization was successfully created. Read-only user created: email: " + salt + " _#{@organization.name}".gsub!(/\s/, "")+"_#{@organization.country}@nodomain.com; Password: " + salt
+        flash[:notice] = "Organization was successfully created. Read-only user created: email: A" + salt + "@nodomain.com; Password: " + salt
       
     end
     respond_with(@organization)

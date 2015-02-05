@@ -35,14 +35,14 @@
           <% if event.decision  %>
               <div class="col-md-2">  <kbd> <%= event.user.name %> </kbd>  </div>
           <% else %>
-              <div class="col-md-2"> <%= event.user.name %> </div>
+              <div class="col-md-2"> <reduced> <%= event.user.name %> </reduced> </div>
           <% end %>
 
           <!-- User organization, with Font code for "Decision" -->
           <% if event.decision  %>
               <div class="col-md-1"> <kbd> <%= event.user.organization.name %> </kbd> </div>
           <% else %>
-              <div class="col-md-1"> <%= event.user.organization.name %> </div>
+              <div class="col-md-1"> <reduced> <%= event.user.organization.name %> </reduced> </div>
           <% end %>
 
 
