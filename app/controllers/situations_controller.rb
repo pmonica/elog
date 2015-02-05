@@ -51,25 +51,18 @@ class SituationsController < ApplicationController
     if params.has_key?(:situation)
        @situation.update(situation_params)
        respond_with(@situation)
-       # Create an event to record the situation's change
-       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
-             :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
-             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
-       evento.save
     else
-       # We will enter here, when deactivation is done by a P3 via de deactivation button 
+       # We will enter here, when deactivation is done by a P3 via the deactivation button 
        @situation.active=false
        @situation.save
-        # Create an event to record the deactivation
-       evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-                 :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
-             :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
-             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
-       evento.save
        redirect_to situations_path
     end
-    
+    # Create an event to record the situation's change
+     evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+               :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+           :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
+           Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+     evento.save 
   end
 
   # def destroy

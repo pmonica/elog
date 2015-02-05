@@ -1,9 +1,10 @@
 <%= simple_form_for(@situation) do |f| %>
   <%= f.error_notification %>
 
-  <% @situation.sensitivity="Private" %>
-  <% @situation.level="Local" %>
-
+  <% if !@editar %>
+    <% @situation.sensitivity="Private" %>
+    <% @situation.level="Local" %>
+  <% end %>
 
   <div class="form-inputs">
     <%= f.input :name %>
