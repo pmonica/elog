@@ -24,8 +24,13 @@ class EventPolicy < ApplicationPolicy
      false
   end
 
-  def create?
+  def new?
     user.admin? || user.p4? || user.p3? || user.p2?
+  end
+
+  def create?
+    @situation = Situation.find(@record.situation.id)
+    @situation.active? && (user.admin? || user.p4? || user.p3? || user.p2?)
   end
 
   def update?
@@ -36,6 +41,6 @@ class EventPolicy < ApplicationPolicy
     false
   end
 
-  alias_method :new?, :create?
+  #alias_method :new?, :create?
   alias_method :edit?, :update?
 end

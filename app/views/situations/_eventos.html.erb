@@ -33,16 +33,9 @@
 
           <!-- User name, with Font code for "Decision" -->
           <% if event.decision  %>
-              <div class="col-md-2">  <kbd> <%= event.user.name %> </kbd>  </div>
+              <div class="col-md-3">  <kbd> <%= event.user.name %></kbd> - <kbd> <%= event.user.organization.name %> </kbd> </div>
           <% else %>
-              <div class="col-md-2"> <reduced> <%= event.user.name %> </reduced> </div>
-          <% end %>
-
-          <!-- User organization, with Font code for "Decision" -->
-          <% if event.decision  %>
-              <div class="col-md-1"> <kbd> <%= event.user.organization.name %> </kbd> </div>
-          <% else %>
-              <div class="col-md-1"> <reduced> <%= event.user.organization.name %> </reduced> </div>
+              <div class="col-md-3"> <reduced> <%= event.user.name %> - <%= event.user.organization.name %></reduced> </div>
           <% end %>
 
 
@@ -100,11 +93,7 @@
                       <% end %>
 
                       <!-- User name -->
-                      <div class="col-md-2"> <%= comment.user.name %> </div>
-
-
-                      <!-- User organization -->
-                      <div class="col-md-1"> <%= comment.user.organization.name %> </div>
+                      <div class="col-md-3"> <reduced><%= comment.user.name %> - <%= comment.user.organization.name %></reduced></div>
 
                       <!-- Comment body -->
                       <div class="col-md-5"> <%= comment.body %> </div>

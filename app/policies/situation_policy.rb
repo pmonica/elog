@@ -63,7 +63,6 @@ class SituationPolicy < ApplicationPolicy
 
   def update?
     return true if user.admin?
-
     show? && (user.p3? || user.p4?) && record.owner_organization == user.organization
   end
 

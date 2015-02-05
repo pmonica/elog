@@ -27,12 +27,11 @@ class CommentsController < ApplicationController
   # end
 
   def create
-    authorize Comment
-
+    #authorize Comment
     @event = Event.find(params[:event_id])
     @situation=@event.situation
-
     @comment = Comment.new(augmented_comment_params)
+    authorize @comment
     @comment.save
     @event.touch
 

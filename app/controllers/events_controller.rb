@@ -26,10 +26,10 @@ class EventsController < ApplicationController
   # end
 
   def create
-    authorize Event
+    #authorize Event
     @situation = Situation.find(params[:situation_id])
-
     @event = Event.new(augmented_event_params)
+    authorize @event
     @event.save
 
     redirect_to situation_path(@situation)
