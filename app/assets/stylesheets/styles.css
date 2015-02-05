@@ -5,7 +5,8 @@ body {
 }
 
 reduced {
-    font-size: 12px;
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 12px;
 }
 
 /* Wrapper for page content to push down footer */
