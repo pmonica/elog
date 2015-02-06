@@ -2,7 +2,7 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :name, label: 'Acronym (30 Characters max)', input_html: { maxlength: 30 } %>
+    <%= f.input :name, label: 'Acronym (25 Characters max)', input_html: { maxlength: 25 } %>
     <%= f.input :country, priority: [ "Portugal" ], 
                 collection: [ "Angola", "Cameroon", "Cape Verde", "Congo", "Equatorial Guinea", "France",
                 	          "Gabon","Gambia", "Ghana", "Guinea", "Guinea - Bissau", "International", "Ivory Coast", "Liberia", 
