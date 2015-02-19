@@ -4,6 +4,33 @@
   <div class="col-sm-9">
      <h3><i class="glyphicon glyphicon-dashboard"></i> Organizations</h3>
      <hr>
+      <div class="row">
+          <div class="col-sm-12">
+            <div class="bs-callout bs-callout-primary" >
+             
+              <p>
+                 <strong>User:</strong>
+                 <%= current_user.name %>
+              </p>
+
+               <p>
+                 <strong>Organization:</strong>
+                 <%= current_user.organization.name %>
+              </p>
+
+              <p>
+                <strong>Number of visible Organizations:</strong>
+                <%= @organizations.count %> 
+              </p>
+
+            </div> <!-- end of callout-primary -->
+          </div> <!-- end of sm-12 -->
+      </div> <!-- end of row -->
+  </div> <!-- end da sm-9  -->
+
+  <div class="col-sm-12">
+      <%= link_to 'New Organization', new_organization_path, :type => 'button', :class => 'btn btn-primary'%>
+      <hr>
     <table class="table table-striped">
       <thead>
         <tr><th>Name</th><th>Country</th><th>Creator</th><th></th></tr>
@@ -30,8 +57,7 @@
         <% end %> <!-- end do --> 
       </tbody>
     </table>
-  </div> <!-- end da div  -->
-  <hr>
-  <%= link_to 'New Organization', new_organization_path, :type => 'button', :class => 'btn btn-primary'%>
+  </div> <!-- end da sm-12  -->
+
 </div>
 

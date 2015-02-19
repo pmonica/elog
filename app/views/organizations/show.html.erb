@@ -16,7 +16,7 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="bs-callout bs-callout-primary" >
-
+           
             <p>
             <strong>Name:</strong>
             <%= @organization.name %>
@@ -36,16 +36,21 @@
                   <%= @organization.organization.created_at.to_s %>
               <% end %>
             </p>
-          </div>
-        </div>
-      </div>
 
-      <hr>
+          </div> <!-- end of callout-primary -->
+        </div> <!-- end of sm-12 -->
+      </div> <!-- end of row -->
+
+
+    </div> <!-- end of sm-9 -->
+    
+    <div class="col-sm-12">
 
       <table class="table table-striped">       
         <thead>
           <tr>
-            <th>Situations</th>
+            <th>Situation</th>
+            <th>Created by</th>
             <th>Created at</th>
             <th>Joined at</th>
           </tr>
@@ -54,14 +59,19 @@
           <% @participations.each do |joined_at, situation| %>
             <tr>
               <td><%= link_to situation.name, situation %></td>
+              <% if  situation.organization.name != "ADMIN" %>
+                   <td><%= situation.organization.name %></td>
+              <% else %>
+                   <td><%= "-------" %></td>
+              <% end %>
               <td><%= situation.created_at %></td>
               <td><%= joined_at %></td>
             </tr>
           <% end %>
         </tbody>
       </table>
-
-    </div>
+    </div> <!-- end of row -->
+    
     <hr>
-</div>
+</div> <!-- end of row -->
 
