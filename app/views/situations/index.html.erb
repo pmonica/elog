@@ -47,7 +47,7 @@
               <% else %>
                    <td><%= "-------" %></td>
               <% end %>
-              <td><%= situation.owner_organization.created_at %></td>
+              <td><%= situation.created_at %></td>
               <td><%= situation.sensitivity %></td>
               <td><%= situation.level %></td>
               <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
