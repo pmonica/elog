@@ -31,6 +31,7 @@ class EventsController < ApplicationController
     @event = Event.new(augmented_event_params)
     authorize @event
     @event.save
+    @situation.touch
 
     redirect_to situation_path(@situation)
   end

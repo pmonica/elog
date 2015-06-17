@@ -62,7 +62,8 @@ class SituationsController < ApplicationController
                :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
            :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
            Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
-     evento.save 
+     evento.save
+     @situation.touch
   end
 
   # def destroy
