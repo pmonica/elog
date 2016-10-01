@@ -9,6 +9,25 @@ class SituationsController < ApplicationController
 
   def index
     @situations = policy_scope(Situation)
+
+    if(params.has_key?(:f1))
+      @f1=params[:f1]
+    end
+    if(params.has_key?(:f2))
+      @f2=params[:f2]
+    end
+    if(params.has_key?(:f3))
+      @f3=params[:f3]
+    end
+    if ( (defined?(@f1)!=nil) and (@f1 != "") and (@f1 != "0"))
+        @situations = @situations.select { |s| s.tags.include?(Tag.find(@f1)) }
+    end
+    if ( (defined?(@f2)!=nil) and (@f2 != "") and (@f2 != "0"))
+        @situations = @situations.select { |s| s.tags.include?(Tag.find(@f2)) }
+    end
+    if ( (defined?(@f3)!=nil) and (@f3 != "") and (@f3 != "0"))
+        @situations = @situations.select { |s| s.tags.include?(Tag.find(@f3)) }
+    end
     respond_with(@situations)
   end
 
@@ -30,19 +49,19 @@ class SituationsController < ApplicationController
   end
 
   def create
-    authorize Situation
+        authorize Situation
+        
+        @situation = Situation.new(augmented_situation_params)
+        @situation.save
+         
+        # Create an event to record the situation's creation
+        evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
+                   :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
+                   :title => "Situation \"#{@situation.name}\" created as \"#{@situation.sensitivity}\", \"#{@situation.level}\".
+                   Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}}. Tags: #{@situation.tags.map{ |o| o.body}}. ")
+        evento.save
 
-    @situation = Situation.new(augmented_situation_params)
-    @situation.save
-   
-    # Create an event to record the situation's creation
-    evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
-             :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
-             :title => "Situation \"#{@situation.name}\" created as \"#{@situation.sensitivity}\", \"#{@situation.level}\".
-             Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
-    evento.save
-
-    respond_with(@situation)
+        respond_with(@situation)
   end
 
   def update
@@ -61,7 +80,7 @@ class SituationsController < ApplicationController
      evento = Event.create(:user => current_user, :organization => current_user.organization, :decision => true,
                :situation => @situation, :sensitivity => @situation.sensitivity, :level => @situation.level, 
            :title => "Situation \"#{@situation.name}\" modified to: \"#{@situation.sensitivity}\", \"#{@situation.level}\", Active=\"#{@situation.active}\".
-           Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}} ")
+           Participating organizations: #{@situation.organizations.map { |o| o.name + ' - ' + o.country}}. Tags: #{@situation.tags.map{ |o| o.body}}. ")
      evento.save
      @situation.touch
   end
@@ -100,7 +119,7 @@ class SituationsController < ApplicationController
     end
 
     def situation_params
-      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :_method, :organization_ids => [])
+      params.require(:situation).permit(:name, :description, :sensitivity, :active, :level, :_method, :organization_ids => [], :tag_ids => [])
     end
 
 end

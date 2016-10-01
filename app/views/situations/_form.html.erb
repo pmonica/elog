@@ -7,6 +7,12 @@
   <% end %>
 
   <div class="form-inputs">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.association :tags, :include_blank => false, :label_method => lambda { |t| "#{t.body}"} %>
+      </div>
+    </div>
+
     <%= f.input :name %>
     <%= f.input :description %>
     <%= f.input :sensitivity, collection: @sensitivities.keys %>

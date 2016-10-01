@@ -30,6 +30,82 @@
 
   </div>
 
+  <div class="col-sm-9">
+    <div class="bs-callout bs-callout-default" >
+     <!-- linha de cima -->
+     <div class="row">  
+       <div class="col-sm-9"> 
+          <strong>Filters:</strong>
+       </div>
+       <div class="col-sm-1"> 
+            <%= link_to 'Clear all filters', situations_path, :type => 'button', :class => 'btn btn-secondary'%>
+       </div>
+     </div>
+     <div class="row">    
+       <div class="col-sm-4">
+          <%= form_tag(situations_path, :method => "get") do %>
+            <% if (defined?(@f1)==nil) then %>
+                <% valor=0 %>
+            <% else %>
+                 <% valor=@f1 %>
+            <% end %>
+          
+            <%= select_tag(:f1, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
+            <%= hidden_field_tag :f2, @f2 %>
+            <%= hidden_field_tag :f3, @f3 %>
+            <%= submit_tag "Apply" %>
+          <% end %>
+       </div>
+       <div class="col-sm-4">
+          <%= form_tag(situations_path, :method => "get") do %>
+            <% if (defined?(@f2)==nil) then %>
+                <% valor=0 %>
+            <% else %>
+                 <% valor=@f2 %>
+            <% end %>
+          
+            <%= select_tag(:f2, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
+            <%= hidden_field_tag :f1, @f1 %>
+            <%= hidden_field_tag :f3, @f3 %>
+            <%= submit_tag "Apply" %>
+          <% end %>
+       </div> 
+       <div class="col-sm-4">
+          <%= form_tag(situations_path, :method => "get") do %>
+            <% if (defined?(@f3)==nil) then %>
+                <% valor=0 %>
+            <% else %>
+                 <% valor=@f3 %>
+            <% end %>
+          
+            <%= select_tag(:f3, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
+            <%= hidden_field_tag :f1, @f1 %>
+            <%= hidden_field_tag :f2, @f2 %>
+            <%= submit_tag "Apply" %>
+          <% end %>
+       </div> 
+     </div>    <!-- Fecha a row -->
+     <!-- Agora esrever a linha das opcoes efectivas -->
+     <div class="row"> 
+       <div class="col-sm-4">
+          <% if ( (defined?(@f1)!=nil) and (@f1 != "") and (@f1 != "0")) %>
+              <strong><font color="red"><%=Tag.find(@f1).body %></font></strong>
+          <% end %> 
+       </div> 
+       <div class="col-sm-4">
+          <% if ( (defined?(@f2)!=nil) and (@f2 != "") and (@f2 != "0")) %>
+              <strong><font color="red"><%=Tag.find(@f2).body %></font></strong>
+          <% end %> 
+       </div> 
+       <div class="col-sm-4">
+          <% if ( (defined?(@f3)!=nil) and (@f3 != "") and (@f3 != "0")) %>
+              <strong><font color="red"><%=Tag.find(@f3).body %></font></strong>
+          <% end %> 
+       </div> 
+     </div>
+    </div>
+  </div>
+
 
   <div class="col-sm-12">
       <%= link_to 'New Situation', new_situation_path, :type => 'button', :class => 'btn btn-primary'%>
@@ -40,26 +116,31 @@
         </thead>
         <tbody>
           <% @situations.each do |situation| %>
-            <tr>
-              <td><%= link_to situation.name, situation %></td>
-              <% if  situation.organization.name != "ADMIN" %>
-                   <td><%= situation.organization.name %></td>
-              <% else %>
-                   <td><%= "-------" %></td>
-              <% end %>
-              <td><%= situation.created_at %></td>
-              <td><%= situation.sensitivity %></td>
-              <td><%= situation.level %></td>
-              <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
-              <% if (current_user.admin? || current_user.p4?)%>
-                  <% if (situation.active) %>
-                     <td><i class="glyphicon glyphicon-folder-open"></i></td>
-                  <% else %> 
-                     <td><i class="glyphicon glyphicon-folder-close"></i></td>
+
+          
+                <tr>
+                  <td><%= link_to situation.name, situation %></td>
+                  <% if  situation.organization.name != "ADMIN" %>
+                       <td><%= situation.organization.name %></td>
+                  <% else %>
+                       <td><%= "-------" %></td>
                   <% end %>
-              <% end %>   
-    <!--             <td><%= link_to 'Destroy', situation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    -->      </tr>
+                  <td><%= situation.created_at %></td>
+                  <td><%= situation.sensitivity %></td>
+                  <td><%= situation.level %></td>
+                  <td><%= link_to 'Edit', edit_situation_path(situation) %></td>
+                  <% if (current_user.admin? || current_user.p4?)%>
+                      <% if (situation.active) %>
+                         <td><i class="glyphicon glyphicon-folder-open"></i></td>
+                      <% else %> 
+                         <td><i class="glyphicon glyphicon-folder-close"></i></td>
+                      <% end %>
+                  <% end %>   
+        <!--             <td><%= link_to 'Destroy', situation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        -->      </tr>
+          
+
+
           <% end %>
         </tbody>
       </table>

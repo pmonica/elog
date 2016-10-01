@@ -30,12 +30,24 @@
                       <%= @situation.created_at.to_s %>
                   <% end %>
               </p>
+
+              <p>
+                <strong>Tags:</strong>
+
+                      <% @situation.tags.each do |t| %>
+                          <%= t.body + ";"%>
+                      <% end %>
+              </p>
+
+
             </div> <!-- end of callout-primary -->
-            <hr>
         </div> <!-- end of sm-12 -->
+        <hr>
+        <p>
+          _______________
+        </p>
+        <i class="glyphicon glyphicon-comment"></i> <a href="javascript:;" onclick="$(participating_orgs).toggle();">  <strong> Participating Organizations</strong> </a>  
 
-
-        <div > <i class="glyphicon glyphicon-comment"></i> <a href="javascript:;" onclick="$(participating_orgs).toggle();">  <strong> Participating Organizations</strong> </a>  </div>
       
 
         <!-- Agora apresenta as organizacoes participantes, mas hidden -->
@@ -52,11 +64,6 @@
             </table>
 
         </div>
-
-
-
-
-
 
     </div> <!-- col-sm-9 --> 
 </div> <!-- fecha a row inicial -->

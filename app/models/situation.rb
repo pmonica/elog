@@ -4,6 +4,8 @@ class Situation < ActiveRecord::Base
 
   has_many :participations
   has_many :organizations, :through => :participations
+  has_many :labels
+  has_many :tags, :through => :labels
   has_many :events
   belongs_to :user
   belongs_to :organization, :foreign_key => :owner_organization
