@@ -33,6 +33,12 @@ class SituationsController < ApplicationController
 
   def show
     authorize @situation
+    if(params.has_key?(:filtro))
+      @filtro_activo=params[:filtro]
+      @filtro_activo.tap{|x| x.strip!}
+    else
+      @filtro_activo=""
+    end
     respond_with(@situation)
   end
 

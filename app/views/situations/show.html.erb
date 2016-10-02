@@ -68,12 +68,24 @@
     </div> <!-- col-sm-9 --> 
 </div> <!-- fecha a row inicial -->
 
-<div> <!-- Cabeçalho dos eventos -->
+<div class="row"> <!-- Cabeçalho dos eventos -->
+  <div class="col-sm-3">
     <strong><i class="glyphicon glyphicon-comment"></i> Events</strong> 
     <% if @situation.active %>
        <%= link_to 'New Event', new_situation_event_path(@situation), :type => 'button', :class => 'btn btn-primary'%>
        <hr>
-    <% end %> 
+    <% end %>
+  </div>
+  <div class="col-sm-9">
+    <div class="bs-callout bs-callout-primary" >  
+            <%= form_tag(situation_path, :method => "get") do %>
+                <label for="filtro">Search events with:</label>
+                <%= text_field_tag 'filtro', "#{@filtro_activo}", :maxlength => 35, :size => 40 %>
+                <%= submit_tag "Search" %>
+                <%= link_to 'Clear search', situation_path, :type => 'button', :class => 'btn btn-secondary'%>
+            <% end %>
+    </div>
+  </div>
 </div> <!-- Cabeçalho dos eventos -->
 
 

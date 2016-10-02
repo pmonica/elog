@@ -6,6 +6,8 @@
 
 <!-- Agora mostra os eventos -->
   <% @events=policy_scope(@situation.events) %>
+  <% @events=@events.select { |e| e.title.include?(@filtro_activo) } %>
+
   <% @events.each do |event| %>
 
     <% if event.sensitivity == "Secret" %>
