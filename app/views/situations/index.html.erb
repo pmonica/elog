@@ -14,7 +14,7 @@
                <%= current_user.name %>
             </p>
 
-             <p>
+            <p>
                <strong>Organization:</strong>
                <%= current_user.organization.name %>
             </p>
@@ -27,20 +27,20 @@
           </div> <!-- end of callout-primary -->
         </div> <!-- end of sm-12 -->
     </div> <!-- end of row -->
-
-  </div>
+  </div> <!-- end of sm-9 -->
 
   <div class="col-sm-9">
     <div class="bs-callout bs-callout-default" >
      <!-- linha de cima -->
      <div class="row">  
        <div class="col-sm-9"> 
-          <strong>Filters:</strong>
+          <strong>With tags:</strong>
        </div>
-       <div class="col-sm-1"> 
-            <%= link_to 'Clear all filters', situations_path, :type => 'button', :class => 'btn btn-secondary'%>
+       <div class="col-sm-2"> 
+       <!--   <%= link_to 'Clear all tags', situations_path, :type => 'button', :class => 'btn btn-secondary'%> -->
+        <%= link_to "Clear all tags", {:controller => "situations", :action => "index", :sitfilt => @sitfilt_activo }%>
        </div>
-     </div>
+     </div> <!-- end of row -->
      <div class="row">    
        <div class="col-sm-4">
           <%= form_tag(situations_path, :method => "get") do %>
@@ -53,6 +53,7 @@
             <%= select_tag(:f1, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
             <%= hidden_field_tag :f2, @f2 %>
             <%= hidden_field_tag :f3, @f3 %>
+            <%= hidden_field_tag :sitfilt, @sitfilt_activo %>
             <%= submit_tag "Apply" %>
           <% end %>
        </div>
@@ -67,6 +68,7 @@
             <%= select_tag(:f2, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
             <%= hidden_field_tag :f1, @f1 %>
             <%= hidden_field_tag :f3, @f3 %>
+            <%= hidden_field_tag :sitfilt, @sitfilt_activo %>
             <%= submit_tag "Apply" %>
           <% end %>
        </div> 
@@ -81,6 +83,7 @@
             <%= select_tag(:f3, options_from_collection_for_select(Tag.all, "id", "body", valor), include_blank: true ) %>
             <%= hidden_field_tag :f1, @f1 %>
             <%= hidden_field_tag :f2, @f2 %>
+            <%= hidden_field_tag :sitfilt, @sitfilt_activo %>
             <%= submit_tag "Apply" %>
           <% end %>
        </div> 
@@ -102,9 +105,40 @@
               <strong><font color="red"><%=Tag.find(@f3).body %></font></strong>
           <% end %> 
        </div> 
+     </div> <!-- Fecha a row das opcoes efectivas -->
+    </div> <!-- Fecha a bs-callout -->
+    <div class="bs-callout bs-callout-default" >
+     <div class="row">
+       <div class="col-sm-4">   
+         <strong> With description containing:</strong> 
+       </div>
      </div>
-    </div>
-  </div>
+     <div class="row">
+        <div class="col-sm-12">          
+          <%= form_tag(situations_path, :method => "get") do %>
+            <label for="sitfil"> </label>
+            <%= text_field_tag 'sitfilt', "#{@sitfilt_activo}", :maxlength => 25, :size => 30 %>
+            <%= hidden_field_tag :f1, @f1 %>
+            <%= hidden_field_tag :f2, @f2 %>
+            <%= hidden_field_tag :f3, @f3 %>
+            <%= submit_tag "Apply" %>
+            <!-- <%= link_to 'Clear search', situations_path, :type => 'button', :class => 'btn btn-secondary'%> -->
+            <!-- <%= link_to 'Clear search', situations_path, :type => 'button', :sitfilt => "#{@sitfilt_activo}", :class => 'btn btn-secondary'%> -->
+
+            <%= link_to "Clear search expression", {:controller => "situations", :action => "index", :f1 => @f1, :f2 => @f2, :f3 => @f3 }%>
+          <% end %>
+        </div> <!-- end of SM-12 -->  
+     </div> <!-- end of row -->
+     <div class="row">
+       <div class="col-sm-9"> 
+         <% if ( (defined?(@sitfilt_activo)!=nil) and (@sitfilt_activo != "") and (@sitfilt_activo != "0")) %>
+            <strong><font color="red"><%= @sitfilt_activo %></font></strong>
+         <% end %> 
+       </div>
+     </div> <!-- Fecha a row -->   
+    </div> <!-- fecha a bs-callout -->
+  </div> <!-- fecha a sm-9 -->
+
 
 
   <div class="col-sm-12">

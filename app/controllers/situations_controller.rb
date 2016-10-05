@@ -19,6 +19,10 @@ class SituationsController < ApplicationController
     if(params.has_key?(:f3))
       @f3=params[:f3]
     end
+    if(params.has_key?(:sitfilt))
+      @sitfilt_activo=params[:sitfilt]
+      @sitfilt_activo.tap{|x| x.strip!}
+    end
     if ( (defined?(@f1)!=nil) and (@f1 != "") and (@f1 != "0"))
         @situations = @situations.select { |s| s.tags.include?(Tag.find(@f1)) }
     end
@@ -27,6 +31,11 @@ class SituationsController < ApplicationController
     end
     if ( (defined?(@f3)!=nil) and (@f3 != "") and (@f3 != "0"))
         @situations = @situations.select { |s| s.tags.include?(Tag.find(@f3)) }
+    end
+    if ( (defined?(@sitfilt_activo)!=nil) and (@sitfilt_activo != "") and (@sitfilt_activo != "0"))
+        @situations=@situations.select { |s| s.description.include?(@sitfilt_activo) }
+    else
+        @sitfilt_activo=""      
     end
     respond_with(@situations)
   end
