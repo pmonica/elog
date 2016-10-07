@@ -1,10 +1,9 @@
 class SituationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_situation, only: [:show, :edit, :update]
+  before_action :set_situation, only: [:show, :edit, :update, :print, :pdf]
   before_action :set_sensitivites, only: [:edit, :new, :create]
   after_action :verify_policy_scoped, :only => :index
-  after_action :verify_authorized, :except => :index
-
+  after_action :verify_authorized, :except =>  [:index, :pdf]
   respond_to :html
 
   def index
@@ -61,6 +60,20 @@ class SituationsController < ApplicationController
   def edit
     authorize @situation
     @editar = true
+  end
+
+  def print
+    authorize @situation
+    file_name="#{@situation.name}"+".pdf"
+    html_file = render_to_string(:action => :pdf, :layout => "situation_pdf.html")
+    kit = PDFKit.new(html_file, :page_size => 'Letter')
+    send_data(kit.to_pdf, :filename => file_name, :type => 'application/pdf')
+    return # to avoid double render call
+  end
+
+  def pdf
+    authorize @situation
+    respond_with(@situation)
   end
 
   def create

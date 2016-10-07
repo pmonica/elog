@@ -14,6 +14,8 @@ gem 'devise'
 gem 'pundit'
 gem 'simple_form'
 gem 'country_select'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'sqlite3'

@@ -4,6 +4,10 @@ Rails.application.routes.draw do
 
   get 'tags/new'
 
+  get 'situations/print/:id', to: 'situations#print', as: 'situation_print'
+
+  get 'situations/pdf/:id', to: 'situations#pdf', as: 'situation_pdf'
+
   get 'tags/edit/:id', to: 'tags#edit', as: 'tags_edit'
 
   post 'tags/create', to: 'tags#create', as: 'tags_create'

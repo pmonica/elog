@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-sm-12">
+        <h3><i class="glyphicon glyphicon-dashboard"></i> 
+          <%= @situation.name + ' (' + @situation.organization.name + ', ' + @situation.sensitivity + ', ' + @situation.level + ')' %> 
+          <% if (current_user.admin? || current_user.p4?) %>
+            <% if (@situation.active) %>
+               <td><i class="glyphicon glyphicon-folder-open"></i></td>
+            <% else %> 
+               <td><i class="glyphicon glyphicon-folder-close"></i></td>
+            <% end %>
+          <% end %>  
+        </h3>
+
+        <div class="col-sm-12">
+            <div class="bs-callout bs-callout-primary" >   
+              <p>
+                 <strong>Description:</strong>
+                 <%= @situation.description %>
+              </p>
+
+              <p>
+                  <% if  @situation.organization.name != "ADMIN" %>
+                      <strong>Created by:</strong>
+                      <%= @situation.organization.name + ", at " +  @situation.created_at.to_s %>
+                  <% else %>
+                      <strong>Created at:</strong>
+                      <%= @situation.created_at.to_s %>
+                  <% end %>
+              </p>
+
+              <p>
+                <strong>Tags:</strong>
+
+                      <% @situation.tags.each do |t| %>
+                          <%= t.body + ";"%>
+                      <% end %>
+              </p>
+              <p>
+                <strong>Exported at:</strong>                
+                <% export_time=Time.now %>
+                <%= export_time %>
+                <%= request.base_url %>
+              </p>  
+
+
+            </div> <!-- end of callout-primary -->
+        </div> <!-- end of sm-12 -->
+        <hr>
+        <p>
+          _______________
+        </p>
+        <strong> Participating Organizations</strong> </a> 
+        <!-- Agora apresenta as organizacoes participantes -->
+        <div id="participating_orgs" >
+
+            <table class="table table-striped">
+              <tbody>
+                <% policy_scope(@situation.organizations).each do |o| %>
+                  <tr>
+                    <td><%= link_to o.name+' - '+o.country, o %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+        </div>
+
+    </div> <!-- col-sm-9 --> 
+</div> <!-- fecha a row inicial -->
+
+<div class="row"> <!-- Cabeçalho dos eventos -->
+  <div class="col-sm-3">
+    <strong><i class="glyphicon glyphicon-comment"></i> Events</strong> 
+  </div>
+</div> <!-- Cabeçalho dos eventos -->
+
+
+<!-- Vamos aos eventos -->
+<div id="painel_de_eventos" >
+
+<!-- <meta http-equiv="refresh" content="10"> <!-- Refresh every 10 seconds -->
+
+<!-- Agora mostra os eventos -->
+  <% @events=policy_scope(@situation.events) %>
+
+  <% @events.each do |event| %>
+
+    <% if event.sensitivity == "Secret" %>
+        <div class="bs-callout bs-callout-danger" >
+    <% else %>
+      <% if event.sensitivity == "Private" %>
+        <div class="bs-callout bs-callout-warning" >
+      <% else %>
+        <div class="bs-callout bs-callout-success" >
+      <% end %>                    
+    <% end %>
+
+       <div class="row">
+
+          <!-- Creation time with symbol code for "Local/National/International" -->
+          <% if event.level == "International" %>
+              <div class="col-md-3"> <small>(<%= event.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
+          <% else %>
+             <% if event.level == "National" %>
+                <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
+             <% else %>
+                <div class="col-md-3">  <small>(<%= event.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+             <% end %>                    
+          <% end %>
+
+          <!-- User name, with Font code for "Decision" -->
+          <% if event.decision  %>
+              <div class="col-md-3">  <kbd> <%= event.user.name %></kbd> - <kbd> <%= event.user.organization.name %> </kbd> </div>
+          <% else %>
+              <div class="col-md-3"> <reduced> <%= event.user.name %> - <%= event.user.organization.name %></reduced> </div>
+          <% end %>
+
+          <div class="col-md-5"> <p> <%= event.title %> </p></div>
+          <div class="col-md-1"> <p> <%= event.sensitivity %> </p></div>
+
+       </div> <!-- row do evento -->
+
+ 
+    </div> <!-- bs-callout do evento -->
+
+
+    <!-- Agora mostra os comments do evento -->
+    <div id="comments_<%= event.id %>" >
+
+       <% @comments=policy_scope(event.comments) %>
+       <% @comments.each do |comment| %>
+         <div class="row">
+           <!-- Indenta -->          
+           <div class="col-md-1"> </div>
+
+            <!-- Comecemos com o comentario-->
+            <div class="col-md-11">
+
+
+              <% if comment.sensitivity == "Secret" %>
+                  <div class="bs-callout bs-callout-info-d" >
+              <% else %>
+                  <% if comment.sensitivity == "Private" %>
+                     <div class="bs-callout bs-callout-info-w" >
+                  <% else %>
+                     <div class="bs-callout bs-callout-info-s" >
+                  <% end %>                    
+              <% end %>
+              
+                  <div class="row">
+
+                      <!-- Creation time with symbol code for "Local/National/International" -->
+                      <% if comment.level == "International" %>
+                          <div class="col-md-3"> <small>(<%= comment.created_at %>)  &nbsp  </small> <span class="glyphicon glyphicon-globe"></span>  </div>
+                      <% else %>
+                         <% if comment.level == "National" %>
+                            <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-share-alt"></span>  </div>
+                         <% else %>
+                            <div class="col-md-3">  <small>(<%= comment.created_at %>) &nbsp </small> <span class="glyphicon glyphicon-chevron-right"></span> </div>
+                         <% end %>                    
+                      <% end %>
+
+                      <!-- User name -->
+                      <div class="col-md-3"> <reduced><%= comment.user.name %> - <%= comment.user.organization.name %></reduced></div>
+
+                      <!-- Comment body -->
+                      <div class="col-md-5"> <%= comment.body %> </div>
+                      <div class="col-md-1"> <%= comment.sensitivity %> </div>
+                  </div> <!-- end row -->
+
+               </div> <!-- end do bs-ballout variavel do comentário -->
+           </div> <!-- end da md-11 do comentario -->
+
+         </div>  <!-- end da row global do comentario -->
+       <% end %>  <!-- loop dos comentarios -->
+    </div> <!-- div dos comentarios de cada evento -->
+
+  <% end %> <!-- endo do loop dos eventos -->
+</div> <!-- painel de eventos -->
+
+<% export_time=Time.now %>
+<%= "Situation exported at #{export_time}" %>
+
