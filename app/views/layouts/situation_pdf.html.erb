@@ -31,10 +31,13 @@
           <% end %>
   </p>
   <p>
-    <strong>Exported at:</strong>                
-    <% export_time=Time.now %>
-    <%= export_time %>
-  </p>  
+    <strong>Exported by:</strong>                
+    <%= current_user.name %> (<%= current_user.organization.name %>) at: <% export_time=Time.now %><%= export_time %>
+  </p> 
+  <p>
+    <strong>Exporter profile:</strong>                
+    (<%= current_user.clearance %>),  (<%= current_user.role %>)
+  </p> 
 
   <hr>
 
@@ -46,7 +49,7 @@
         <tbody>
           <% policy_scope(@situation.organizations).each do |o| %>
             <tr>
-              <td><%= link_to o.name+' - '+o.country, o %></td>
+              <td><%= "#{o.name+' - '+o.country}" %></td>
             </tr>
           <% end %>
         </tbody>
@@ -79,5 +82,5 @@
     <% end %>
   <% end %>
   <hr>
-  <%= "Situation exported at #{export_time}" %>
+  Situation exported by <%= current_user.name %> (<%= current_user.organization.name %>) at: <% export_time=Time.now %><%= export_time %>
 </div>

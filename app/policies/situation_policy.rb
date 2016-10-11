@@ -68,12 +68,12 @@ class SituationPolicy < ApplicationPolicy
 
   def print?
     return true if user.admin?
-    show? && (user.p3? || user.p4?) && record.owner_organization == user.organization
+    show? && (user.p3? || user.p4?)
   end
 
   def pdf?
     return true if user.admin?
-    show? && (user.p3? || user.p4?) && record.owner_organization == user.organization
+    show? && (user.p3? || user.p4?)
   end
 
   def destroy?

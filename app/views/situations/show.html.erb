@@ -13,7 +13,7 @@
           <% end %>  
           <%= link_to 'Edit', edit_situation_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
           <% if (current_user.admin? || current_user.p4?) %>
-            <%= link_to 'Print', situation_print_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
+            <%= link_to 'Export', situation_print_path(@situation), :type => 'button', :class => 'btn btn-primary' %>
           <% end %>
         </h3>
 
