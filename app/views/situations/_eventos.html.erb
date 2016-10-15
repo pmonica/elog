@@ -6,7 +6,7 @@
 
 <!-- Agora mostra os eventos -->
   <% @events=policy_scope(@situation.events) %>
-  <% @events=@events.select { |e| e.title.include?(@filtro_activo) } %>
+  <% @events=@events.select { |e| e.title.downcase.include?(@filtro_activo.downcase) } %>
 
   <% @events.each do |event| %>
 

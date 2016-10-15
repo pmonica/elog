@@ -32,7 +32,7 @@ class SituationsController < ApplicationController
         @situations = @situations.select { |s| s.tags.include?(Tag.find(@f3)) }
     end
     if ( (defined?(@sitfilt_activo)!=nil) and (@sitfilt_activo != "") and (@sitfilt_activo != "0"))
-        @situations=@situations.select { |s| s.description.include?(@sitfilt_activo) }
+        @situations=@situations.select { |s| s.description.downcase.include?(@sitfilt_activo.downcase) }
     else
         @sitfilt_activo=""      
     end
