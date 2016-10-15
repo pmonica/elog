@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'country_select'
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
+gem 'seed_dump'
 
 group :development, :test do
   gem 'sqlite3'

@@ -1,7 +1,7 @@
 class SituationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_situation, only: [:show, :edit, :update, :print, :pdf]
-  before_action :set_sensitivites, only: [:edit, :new, :create]
+  before_action :set_sensitivites, only: [:edit, :new, :create, :update]
   after_action :verify_policy_scoped, :only => :index
   after_action :verify_authorized, :except =>  [:index, :pdf]
   respond_to :html

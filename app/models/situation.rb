@@ -10,7 +10,7 @@ class Situation < ActiveRecord::Base
   belongs_to :user
   belongs_to :organization, :foreign_key => :owner_organization
 
-  validates_presence_of :name, :sensitivity, :level, :user
+  validates_presence_of :name, :sensitivity, :description, :level, :user
 
   def self.active
     where(active: true)
